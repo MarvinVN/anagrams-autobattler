@@ -1,8 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://buqlkb5fix0v7"]
+[gd_scene load_steps=3 format=3 uid="uid://buqlkb5fix0v7"]
 
 [ext_resource type="Script" path="res://scripts/word_bank.gd" id="1_lnjm5"]
+[ext_resource type="Script" path="res://scripts/word_manager.gd" id="2_u7o1d"]
 
 [node name="AnagramsRoot" type="Node2D"]
 
 [node name="WordBank" type="Node" parent="."]
 script = ExtResource("1_lnjm5")
+
+[node name="WordManager" type="Node" parent="." node_paths=PackedStringArray("word_bank")]
+script = ExtResource("2_u7o1d")
+word_bank = NodePath("../WordBank")
