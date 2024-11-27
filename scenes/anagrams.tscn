@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://scripts/word_bank.gd" id="1_lnjm5"]
 [ext_resource type="Script" path="res://scripts/word_manager.gd" id="2_u7o1d"]
-[ext_resource type="Script" path="res://letters_manager.gd" id="3_0d0x2"]
+[ext_resource type="Script" path="res://scripts/letters_manager.gd" id="3_0d0x2"]
 [ext_resource type="Script" path="res://scenes/anagrams_board.gd" id="3_vykcw"]
-[ext_resource type="Script" path="res://letter_tile.gd" id="3_yks5r"]
+[ext_resource type="Script" path="res://scripts/letter_tile.gd" id="3_yks5r"]
 
 [node name="AnagramsRoot" type="Node2D"]
 
