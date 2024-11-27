@@ -59,9 +59,7 @@ func generate_valid_words() -> void:
 	for x in range(1, letter_set.size() + 1):
 		generate_words("", letters, 0, valid_word_set)
 	valid_words = valid_word_set
-	
-	print(valid_words.keys().size())
-	
+
 func generate_words(word: String, remaining_letters: Array, current_idx: int, valid_word_set: Dictionary) -> void:
 	if current_idx == len(word):
 		if word_bank.words.has(word):
