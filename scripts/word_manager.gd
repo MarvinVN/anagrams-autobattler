@@ -18,10 +18,28 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_SPACE:
-			refresh_letter_set()
+			refresh_letter_set(get_new_word())
+			shuffle_letter_set()
+		if event.keycode == KEY_S:
+			shuffle_letter_set()
 
-func refresh_letter_set() -> void:
-	var word = word_bank.get_random_word()
+func get_new_word() -> String:
+	return word_bank.get_random_word()
+	
+func letter_set_to_str_array(word: String) -> Array:
+	var letters_str = []
+	for char in letter_set:
+		letters_str.append(char)
+	return letters_str
+
+func shuffle_letter_set() -> void:
+	var new_string = ""
+	letter_set_str_array.shuffle()
+	for char in letter_set_str_array:
+		new_string += char
+	refresh_letter_set(new_string)
+
+func update_letter_set(word: String) -> void:
 	var letters = []
 	var letters_str = []
 	for char in word:
@@ -29,17 +47,20 @@ func refresh_letter_set() -> void:
 		letters_str.append(char)
 	letter_set = letters
 	letter_set_str_array = letters_str
+
+func refresh_letter_set(word: String) -> void:
+	update_letter_set(word)
 	new_letter_set.emit(letter_set)
 	generate_valid_words()
-	
-	print(letter_set_str_array)
-	
+
 func generate_valid_words() -> void:
 	var valid_word_set = {}
 	var letters = letter_set_str_array
 	for x in range(1, letter_set.size() + 1):
 		generate_words("", letters, 0, valid_word_set)
 	valid_words = valid_word_set
+	
+	print(valid_words.keys().size())
 	
 func generate_words(word: String, remaining_letters: Array, current_idx: int, valid_word_set: Dictionary) -> void:
 	if current_idx == len(word):

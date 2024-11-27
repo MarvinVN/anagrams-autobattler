@@ -5,6 +5,7 @@ extends Node
 
 @onready var letter_tiles: Array = get_children()
 
+
 func update_tile_positions() -> void:
 	var positions = board.get_letter_positions()
 	print(positions)
