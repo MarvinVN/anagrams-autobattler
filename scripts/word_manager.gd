@@ -3,19 +3,30 @@ extends Node
 
 signal new_letter_set
 
+@onready var timer: Timer = $Timer
+
 @export var board: AnagramsBoard
-@export var letters_manager: LettersManager
 @export var word_bank: WordBank
+
+const DEFAULT_TIME: float = 10.0
 
 var letter_set: Array
 var letter_set_str_array: Array
 var valid_words: Dictionary
 
+func _process(delta: float) -> void:
+	board.timer.text = str(timer.time_left).pad_decimals(2)
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_SPACE:
-			refresh_letter_set(get_new_word())
-			shuffle_letter_set()
+			reset_board()
+
+func reset_board() -> void:
+	refresh_letter_set(get_new_word())
+	shuffle_letter_set()
+	timer.wait_time = DEFAULT_TIME
+	timer.start()
 
 func get_new_word() -> String:
 	return word_bank.get_random_word()
@@ -66,3 +77,6 @@ func generate_words(word: String, remaining_letters: Array, current_idx: int, va
 
 func word_submission(input_manager: InputManager, word: String) -> void:
 	input_manager.word_submission_response(word in valid_words)
+
+func _on_timer_timeout() -> void:
+	reset_board()

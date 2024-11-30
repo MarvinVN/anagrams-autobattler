@@ -1,6 +1,7 @@
 class_name AnagramsBoard
 extends Control
 
+@export var timer: Label
 @export var input_row: HBoxContainer 
 @export var letter_set_row: HBoxContainer
 

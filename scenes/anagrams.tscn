@@ -12,11 +12,12 @@
 [node name="WordBank" type="Node" parent="."]
 script = ExtResource("1_lnjm5")
 
-[node name="WordManager" type="Node" parent="." node_paths=PackedStringArray("board", "letters_manager", "word_bank")]
+[node name="WordManager" type="Node" parent="." node_paths=PackedStringArray("board", "word_bank")]
 script = ExtResource("2_u7o1d")
 board = NodePath("../Board")
-letters_manager = NodePath("../LettersManager")
 word_bank = NodePath("../WordBank")
+
+[node name="Timer" type="Timer" parent="WordManager"]
 
 [node name="LettersManager" type="Node" parent="." node_paths=PackedStringArray("board")]
 script = ExtResource("3_0d0x2")
@@ -58,7 +59,7 @@ word_manager = NodePath("../WordManager")
 letters_manager = NodePath("../LettersManager")
 board = NodePath("../Board")
 
-[node name="Board" type="Control" parent="." node_paths=PackedStringArray("input_row", "letter_set_row")]
+[node name="Board" type="Control" parent="." node_paths=PackedStringArray("timer", "input_row", "letter_set_row")]
 layout_mode = 3
 anchors_preset = 5
 anchor_left = 0.5
@@ -68,180 +69,144 @@ offset_right = 810.0
 offset_bottom = 367.0
 grow_horizontal = 2
 script = ExtResource("3_vykcw")
-input_row = NodePath("VBoxContainer/InputRow")
-letter_set_row = NodePath("VBoxContainer/LetterSetRow")
+timer = NodePath("VBoxContainer/Label")
+input_row = NodePath("VBoxContainer/LettersContainer/InputRow")
+letter_set_row = NodePath("VBoxContainer/LettersContainer/LetterSetRow")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Board"]
+layout_mode = 2
+offset_top = 10.0
+offset_right = 462.0
+offset_bottom = 236.0
+
+[node name="Label" type="Label" parent="Board/VBoxContainer"]
+z_index = 1
+y_sort_enabled = true
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="Board/VBoxContainer/Label"]
+z_index = -1
+y_sort_enabled = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 50.0
-offset_bottom = -91.0
+offset_left = 195.0
+offset_right = -195.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(310, 150)
-theme_override_constants/separation = 100
 
-[node name="LetterSetRow" type="HBoxContainer" parent="Board/VBoxContainer"]
+[node name="LettersContainer" type="VBoxContainer" parent="Board/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 80
+
+[node name="LetterSetRow" type="HBoxContainer" parent="Board/VBoxContainer/LettersContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 alignment = 1
 
-[node name="Letter1" type="CenterContainer" parent="Board/VBoxContainer/LetterSetRow"]
+[node name="Letter1" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/LetterSetRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/LetterSetRow/Letter1"]
+[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/LetterSetRow/Letter1"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="Letter2" type="CenterContainer" parent="Board/VBoxContainer/LetterSetRow"]
+[node name="Letter2" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/LetterSetRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/LetterSetRow/Letter2"]
+[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/LetterSetRow/Letter2"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="Letter3" type="CenterContainer" parent="Board/VBoxContainer/LetterSetRow"]
+[node name="Letter3" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/LetterSetRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/LetterSetRow/Letter3"]
+[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/LetterSetRow/Letter3"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="Letter4" type="CenterContainer" parent="Board/VBoxContainer/LetterSetRow"]
+[node name="Letter4" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/LetterSetRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/LetterSetRow/Letter4"]
+[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/LetterSetRow/Letter4"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="Letter5" type="CenterContainer" parent="Board/VBoxContainer/LetterSetRow"]
+[node name="Letter5" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/LetterSetRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/LetterSetRow/Letter5"]
+[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/LetterSetRow/Letter5"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="Letter6" type="CenterContainer" parent="Board/VBoxContainer/LetterSetRow"]
+[node name="Letter6" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/LetterSetRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/LetterSetRow/Letter6"]
+[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/LetterSetRow/Letter6"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="InputRow" type="HBoxContainer" parent="Board/VBoxContainer"]
+[node name="InputRow" type="HBoxContainer" parent="Board/VBoxContainer/LettersContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 alignment = 1
 
-[node name="InputSlot1" type="CenterContainer" parent="Board/VBoxContainer/InputRow"]
+[node name="InputSlot1" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/InputRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/InputRow/InputSlot1"]
+[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/InputRow/InputSlot1"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="InputSlot2" type="CenterContainer" parent="Board/VBoxContainer/InputRow"]
+[node name="InputSlot2" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/InputRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/InputRow/InputSlot2"]
+[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/InputRow/InputSlot2"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="InputSlot3" type="CenterContainer" parent="Board/VBoxContainer/InputRow"]
+[node name="InputSlot3" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/InputRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/InputRow/InputSlot3"]
+[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/InputRow/InputSlot3"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="InputSlot4" type="CenterContainer" parent="Board/VBoxContainer/InputRow"]
+[node name="InputSlot4" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/InputRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/InputRow/InputSlot4"]
+[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/InputRow/InputSlot4"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="InputSlot5" type="CenterContainer" parent="Board/VBoxContainer/InputRow"]
+[node name="InputSlot5" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/InputRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/InputRow/InputSlot5"]
+[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/InputRow/InputSlot5"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="InputSlot6" type="CenterContainer" parent="Board/VBoxContainer/InputRow"]
+[node name="InputSlot6" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/InputRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/InputRow/InputSlot6"]
+[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/InputRow/InputSlot6"]
 custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-
-[node name="GridContainer" type="GridContainer" parent="Board/VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-columns = 7
-
-[node name="Letter1" type="CenterContainer" parent="Board/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/GridContainer/Letter1"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-
-[node name="Letter2" type="CenterContainer" parent="Board/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/GridContainer/Letter2"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-
-[node name="Letter3" type="CenterContainer" parent="Board/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/GridContainer/Letter3"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-
-[node name="Letter4" type="CenterContainer" parent="Board/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/GridContainer/Letter4"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-
-[node name="Letter5" type="CenterContainer" parent="Board/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/GridContainer/Letter5"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-
-[node name="Letter6" type="CenterContainer" parent="Board/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/GridContainer/Letter6"]
-custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
 [connection signal="new_letter_set" from="WordManager" to="LettersManager" method="_on_new_letter_set"]
 [connection signal="new_letter_set" from="WordManager" to="InputManager" method="_on_new_letter_set"]
+[connection signal="timeout" from="WordManager/Timer" to="WordManager" method="_on_timer_timeout"]
