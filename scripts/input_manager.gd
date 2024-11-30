@@ -8,6 +8,7 @@ signal submit_word_input
 @export var board: AnagramsBoard
 
 var current_input: Array = []
+var found_words: Dictionary = {}
 
 func _ready() -> void:
 	submit_word_input.connect(word_manager.word_submission)
@@ -15,15 +16,6 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
 		handle_input(event)
-
-func submit_word() -> void:
-	var word = ""
-	for char in current_input:
-		word += char
-	submit_word_input.emit(word)
-
-func clear_current_input() -> void:
-	current_input.clear()
 
 func letter_input(letter: String) -> void:
 	var letter_tile = letters_manager.get_available_letter_tile(letter)
@@ -34,10 +26,35 @@ func letter_input(letter: String) -> void:
 		var input_positions = board.get_input_positions()
 		letters_manager.update_tile_position(letter_tile, input_positions[current_input.size()-1])
 
+func word_submission_response(valid_submission: bool) -> void:
+	if valid_submission:
+		found_words[input_to_word()] = true
+		print("word found!")
+	else:
+		print("invalid word")
+
+func input_to_word() -> String:
+	var word = ""
+	for char in current_input:
+		word += char
+	return word
+
+func clear_current_input() -> void:
+	current_input.clear()
+
 func handle_input(event: InputEventKey) -> void:
 	match event.keycode:
 		KEY_ENTER:
-			submit_word()
+			var word = input_to_word()
+			if word.length() < 3:
+				print("shorty word")
+			elif word in found_words:
+				print("word already found!")
+			else:
+				submit_word_input.emit(self, input_to_word())
+			letters_manager.reset_all_tile_positions()
+			letters_manager.update_all_tile_states(Enums.TileStates.AVAILABLE)
+			clear_current_input()
 		KEY_BACKSPACE:
 			if current_input.is_empty():
 				return
@@ -101,4 +118,4 @@ func handle_input(event: InputEventKey) -> void:
 	print(current_input)
 
 func _on_new_letter_set(letter_set: Array) -> void:
-	clear_current_input()
+	found_words.clear()

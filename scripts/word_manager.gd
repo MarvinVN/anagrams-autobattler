@@ -11,17 +11,11 @@ var letter_set: Array
 var letter_set_str_array: Array
 var valid_words: Dictionary
 
-func _ready() -> void:
-	#refresh_letter_set()
-	pass
-
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_SPACE:
 			refresh_letter_set(get_new_word())
 			shuffle_letter_set()
-		#if event.keycode == KEY_S:
-		#	shuffle_letter_set()
 
 func get_new_word() -> String:
 	return word_bank.get_random_word()
@@ -70,5 +64,5 @@ func generate_words(word: String, remaining_letters: Array, current_idx: int, va
 		var next_remaining = remaining_letters.slice(0, i) + remaining_letters.slice(i + 1, remaining_letters.size())
 		generate_words(next_word, next_remaining, current_idx+1, valid_word_set)
 
-func word_submission(word: String) -> void:
-	pass
+func word_submission(input_manager: InputManager, word: String) -> void:
+	input_manager.word_submission_response(word in valid_words)
