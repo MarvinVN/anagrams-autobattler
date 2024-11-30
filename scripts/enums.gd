@@ -72,5 +72,8 @@ static func get_letter(letter: String):
 		
 
 enum TileStates {
-	
+	AVAILABLE,
+	USED,
+	LOCKED,
+	FROZEN
 }

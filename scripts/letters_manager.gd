@@ -10,15 +10,34 @@ var letter_sprites: Dictionary
 func _init() -> void:
 	init_letter_sprites()
 
-func update_tile_positions() -> void:
+func update_tile_state(letter_tile: LetterTile, tile_state: int) -> void:
+	letter_tiles[letter_tiles.find(letter_tile)].state = tile_state
+
+func get_available_letter_tile(letter: String) -> LetterTile:
+	for letter_tile in letter_tiles:
+		if letter_tile.letter == letter and letter_tile.state == Enums.TileStates.AVAILABLE:
+			return letter_tile
+	return null
+
+func get_used_letter_tile(letter: String) -> LetterTile:
+	for letter_tile in letter_tiles:
+		if letter_tile.letter == letter and letter_tile.state == Enums.TileStates.USED:
+			return letter_tile
+	return null
+
+func update_tile_position(letter_tile: LetterTile, position: Vector2) -> void:
+	letter_tile.position = position
+
+func update_all_tile_positions() -> void:
 	var positions = board.get_letter_positions()
 	var count = 0
 	for letter_tile in letter_tiles:
 		letter_tile.position = positions[count]
+		letter_tile.letter_set_position = letter_tile.position
 		count += 1
 
 func update_all_tile_letters(letter_set: Array) -> void:
-	update_tile_positions()
+	update_all_tile_positions()
 	var letter_set_string = Enums.get_letter_string(letter_set)
 	var count = 0
 	for letter_tile in letter_tiles:

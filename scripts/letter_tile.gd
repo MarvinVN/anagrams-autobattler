@@ -5,6 +5,8 @@ extends Node2D
 @onready var sprite: Sprite2D = $Sprite2D
 
 var letter: String
+var state: int
+var letter_set_position: Vector2
 
 func _init() -> void:
 	sprite = Sprite2D.new()
@@ -14,5 +16,6 @@ func set_letter(new_letter: String) -> void:
 		print("invalid letter")
 		return
 	letter = new_letter
+	state = Enums.TileStates.AVAILABLE
 	sprite.texture = letters_manager.letter_sprites.get(letter)
 	sprite.scale = Vector2(1.5, 1.5)
