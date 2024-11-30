@@ -8,7 +8,7 @@ signal new_letter_set
 @export var board: AnagramsBoard
 @export var word_bank: WordBank
 
-const DEFAULT_TIME: float = 10.0
+const DEFAULT_TIME: float = 60.0
 
 var letter_set: Array
 var letter_set_str_array: Array
