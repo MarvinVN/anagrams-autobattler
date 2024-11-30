@@ -24,6 +24,7 @@ func letter_input(letter: String) -> void:
 		letters_manager.update_tile_state(letter_tile, Enums.TileStates.USED)
 		
 		var input_positions = board.get_input_positions()
+
 		letters_manager.update_tile_position(letter_tile, input_positions[current_input.size()-1])
 
 func word_submission_response(valid_submission: bool) -> void:
@@ -118,4 +119,5 @@ func handle_input(event: InputEventKey) -> void:
 	print(current_input)
 
 func _on_new_letter_set(letter_set: Array) -> void:
+	clear_current_input()
 	found_words.clear()
