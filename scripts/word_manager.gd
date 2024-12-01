@@ -18,11 +18,6 @@ var valid_words: Dictionary
 func _process(delta: float) -> void:
 	board.timer.text = str(timer.time_left).pad_decimals(2)
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_CTRL:
-			reset_board()
-
 func reset_board() -> void:
 	refresh_letter_set(get_new_word())
 	shuffle_letter_set()

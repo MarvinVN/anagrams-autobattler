@@ -79,13 +79,16 @@ func handle_input(event: InputEventKey) -> void:
 			letters_manager.update_tile_state(letter_tile, Enums.TileStates.AVAILABLE)
 			letters_manager.update_tile_position(letter_tile, letter_tile.letter_set_position)
 		KEY_SPACE:
-			if ceil(get_percentage_found()) > RESET_PERCENT_THRESHOLD:
+			if ceil(get_percentage_found()) >= RESET_PERCENT_THRESHOLD:
 				word_manager.reset_board()
 			else:
 				print("not enough words found!")
 		KEY_TAB:
 			if word_manager.letter_set:
 				word_manager.shuffle_letter_set()
+		KEY_CTRL:
+			if not word_manager.letter_set:
+				word_manager.reset_board()
 		KEY_A: 
 			letter_input("a")
 		KEY_B:
