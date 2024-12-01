@@ -84,7 +84,8 @@ func handle_input(event: InputEventKey) -> void:
 			else:
 				print("not enough words found!")
 		KEY_TAB:
-			word_manager.shuffle_letter_set()
+			if word_manager.letter_set:
+				word_manager.shuffle_letter_set()
 		KEY_A: 
 			letter_input("a")
 		KEY_B:
