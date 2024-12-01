@@ -23,8 +23,11 @@ func get_available_letter_tile(letter: String) -> LetterTile:
 			return letter_tile
 	return null
 
-func get_used_letter_tile(letter: String) -> LetterTile:
-	for letter_tile in letter_tiles:
+func get_used_letter_tile_from_back(letter: String) -> LetterTile:
+	var letter_tiles_reverse = []
+	for x in letter_tiles:
+		letter_tiles_reverse.push_front(x)
+	for letter_tile in letter_tiles_reverse:
 		if letter_tile.letter == letter and letter_tile.state == Enums.TileStates.USED:
 			return letter_tile
 	return null
@@ -55,7 +58,7 @@ func update_all_tile_letters(letter_set: Array) -> void:
 func update_tile_letter(letter_tile: LetterTile, letter: String):
 	letter_tile.set_letter(letter)
 
-func _on_new_letter_set(letter_set: Array) -> void:
+func _on_letters_change(letter_set: Array) -> void:
 	update_all_tile_letters(letter_set)
 	
 func init_letter_sprites() -> void:

@@ -4,8 +4,8 @@ extends Node2D
 @onready var letters_manager: LettersManager = $".."
 @onready var sprite: Sprite2D = $Sprite2D
 
-var letter: String
-var state: int
+@export var letter: String
+@export var state: int
 var letter_set_position: Vector2
 
 func _init() -> void:

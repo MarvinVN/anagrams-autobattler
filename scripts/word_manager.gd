@@ -2,6 +2,7 @@ class_name WordManager
 extends Node
 
 signal new_letter_set
+signal letter_set_shuffled
 
 @onready var timer: Timer = $Timer
 
@@ -19,7 +20,7 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_SPACE:
+		if event.keycode == KEY_CTRL:
 			reset_board()
 
 func reset_board() -> void:
@@ -42,7 +43,8 @@ func shuffle_letter_set() -> void:
 	letter_set_str_array.shuffle()
 	for char in letter_set_str_array:
 		new_string += char
-	refresh_letter_set(new_string)
+	update_letter_set(new_string)
+	letter_set_shuffled.emit(letter_set)
 
 func update_letter_set(word: String) -> void:
 	var letters = []

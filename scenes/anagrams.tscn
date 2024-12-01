@@ -59,7 +59,7 @@ word_manager = NodePath("../WordManager")
 letters_manager = NodePath("../LettersManager")
 board = NodePath("../Board")
 
-[node name="Board" type="Control" parent="." node_paths=PackedStringArray("timer", "input_row", "letter_set_row")]
+[node name="Board" type="Control" parent="." node_paths=PackedStringArray("timer", "input_row", "letter_set_row", "found_words_percentage")]
 layout_mode = 3
 anchors_preset = 5
 anchor_left = 0.5
@@ -72,12 +72,14 @@ script = ExtResource("3_vykcw")
 timer = NodePath("VBoxContainer/Label")
 input_row = NodePath("VBoxContainer/LettersContainer/InputRow")
 letter_set_row = NodePath("VBoxContainer/LettersContainer/LetterSetRow")
+found_words_percentage = NodePath("VBoxContainer/HBoxContainer/Container/FoundWordsPercentage")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Board"]
 layout_mode = 2
+offset_left = -125.0
 offset_top = 10.0
-offset_right = 462.0
-offset_bottom = 236.0
+offset_right = 601.0
+offset_bottom = 248.0
 
 [node name="Label" type="Label" parent="Board/VBoxContainer"]
 z_index = 1
@@ -207,6 +209,34 @@ layout_mode = 2
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[connection signal="new_letter_set" from="WordManager" to="LettersManager" method="_on_new_letter_set"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Board/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Container" type="HBoxContainer" parent="Board/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="Board/VBoxContainer/HBoxContainer/Container"]
+layout_mode = 2
+text = "Words Found:"
+
+[node name="FoundWordsPercentage" type="ProgressBar" parent="Board/VBoxContainer/HBoxContainer/Container"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+
+[node name="TextEdit" type="Label" parent="Board/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "[SPACE] for a new letter set (60%)"
+
+[node name="Label" type="Label" parent="Board/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "[TAB] to shuffle letters"
+
+[connection signal="letter_set_shuffled" from="WordManager" to="LettersManager" method="_on_letters_change"]
+[connection signal="letter_set_shuffled" from="WordManager" to="InputManager" method="_on_shuffled_letter_set"]
+[connection signal="new_letter_set" from="WordManager" to="LettersManager" method="_on_letters_change"]
 [connection signal="new_letter_set" from="WordManager" to="InputManager" method="_on_new_letter_set"]
 [connection signal="timeout" from="WordManager/Timer" to="WordManager" method="_on_timer_timeout"]
