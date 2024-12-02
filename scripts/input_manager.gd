@@ -31,9 +31,7 @@ func letter_input(letter: String) -> void:
 	if letter_tile:
 		current_input.append(letter)
 		letters_manager.update_tile_state(letter_tile, Enums.TileStates.USED)
-		
 		var input_positions = board.get_input_positions()
-
 		letters_manager.update_tile_position(letter_tile, input_positions[current_input.size()-1])
 
 func word_submission_response(valid_submission: bool) -> void:
@@ -68,6 +66,8 @@ func board_reset() -> void:
 func handle_input(event: InputEventKey) -> void:
 	match event.keycode:
 		KEY_ENTER:
+			if letters_manager.is_letters_frozen():
+				return
 			var word = input_to_word()
 			if word.length() < 3:
 				print("shorty word")
@@ -79,19 +79,22 @@ func handle_input(event: InputEventKey) -> void:
 			letters_manager.update_all_tile_states(Enums.TileStates.AVAILABLE)
 			clear_current_input()
 		KEY_BACKSPACE:
-			if current_input.is_empty():
+			if current_input.is_empty() or letters_manager.is_letters_frozen():
 				return
 			var letter = current_input.pop_back()
 			var letter_tile = letters_manager.get_used_letter_tile_from_back(letter)
-			letters_manager.update_tile_state(letter_tile, Enums.TileStates.AVAILABLE)
-			letters_manager.update_tile_position(letter_tile, letter_tile.letter_set_position)
+			if letter_tile:
+				letters_manager.update_tile_state(letter_tile, Enums.TileStates.AVAILABLE)
+				letters_manager.update_tile_position(letter_tile, letter_tile.letter_set_position)
 		KEY_SPACE:
+			if letters_manager.is_letters_frozen():
+				return
 			if ceil(get_percentage_found()) >= RESET_PERCENT_THRESHOLD:
 				word_manager.reset_board()
 			else:
 				print("not enough words found!")
 		KEY_TAB:
-			if word_manager.letter_set:
+			if word_manager.letter_set and not letters_manager.is_letters_frozen():
 				word_manager.shuffle_letter_set()
 		KEY_CTRL:
 			if not word_manager.letter_set:

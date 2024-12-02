@@ -66,6 +66,24 @@ func clear_tile_modifiers() -> void:
 		if letter_tile.state not in [Enums.TileStates.AVAILABLE, Enums.TileStates.USED]:
 			letter_tile.state = Enums.TileStates.AVAILABLE
 
+func get_all_tile_states() -> Array:
+	var states = []
+	for letter_tile in letter_tiles:
+		states.append(letter_tile.state)
+	return states
+
+func update_all_tile_states_by_list(states: Array) -> void:
+	var count = 0
+	for letter_tile in letter_tiles:
+		letter_tile.state = states[count]
+		count += 1
+
+func is_letters_frozen() -> bool:
+	for letter_tile in letter_tiles:
+		if letter_tile.state != Enums.TileStates.FROZEN:
+			return false
+	return true
+
 func _on_letters_change(letter_set: Array) -> void:
 	update_all_tile_letters(letter_set)
 	

@@ -11,6 +11,7 @@ const LOCK_DURATION: float = 20.0
 const WILD_CARD_DURATION: float = 20.0
 
 var affected_player: InputManager
+var previous_states: Array
 
 func _process(delta: float) -> void:
 	if not timer.is_stopped():
@@ -28,7 +29,11 @@ func use_modifier(player: InputManager, modifier: int) -> void:
 
 func clear_modifier() -> void:
 	timer.stop()
-	affected_player.letters_manager.clear_tile_modifiers()
+	if affected_player.letters_manager.is_letters_frozen():
+		letters_manager.update_all_tile_states_by_list(previous_states)
+		previous_states.clear()
+	else:
+		affected_player.letters_manager.clear_tile_modifiers()
 	affected_player = null
 	modifier_panel.hide_panel()
 
@@ -39,8 +44,10 @@ func use_add_letter_mod() -> void:
 
 # TODO: currently affects user, make affect the other player
 func use_freeze_mod() -> void:
-	print("freeze")
-	pass
+	previous_states = affected_player.letters_manager.get_all_tile_states()
+	letters_manager.update_all_tile_states(Enums.TileStates.FROZEN)
+	timer.wait_time = FREEZE_DURATION
+	modifier_panel.update_modifier_text("FREEZE LETTERS")
 
 # TODO: currently affects user, make affect the other player
 func use_lock_mod() -> void:
