@@ -56,6 +56,12 @@ script = ExtResource("3_yks5r")
 
 [node name="Sprite2D" type="Sprite2D" parent="LettersManager/LetterTile6"]
 
+[node name="ModifierManager" type="Node" parent="." node_paths=PackedStringArray("letters_manager")]
+script = ExtResource("6_pikx7")
+letters_manager = NodePath("../LettersManager")
+
+[node name="Timer" type="Timer" parent="ModifierManager"]
+
 [node name="InputManager" type="Node" parent="." node_paths=PackedStringArray("word_manager", "letters_manager", "modifier_manager", "board", "player_panel")]
 script = ExtResource("5_c0i84")
 word_manager = NodePath("../WordManager")
@@ -63,12 +69,6 @@ letters_manager = NodePath("../LettersManager")
 modifier_manager = NodePath("../ModifierManager")
 board = NodePath("../AnagramsBoard")
 player_panel = NodePath("../PlayerPanel")
-
-[node name="ModifierManager" type="Node" parent="." node_paths=PackedStringArray("letters_manager")]
-script = ExtResource("6_pikx7")
-letters_manager = NodePath("../LettersManager")
-
-[node name="Timer" type="Timer" parent="ModifierManager"]
 
 [node name="AnagramsBoard" type="Control" parent="." node_paths=PackedStringArray("timer", "input_row", "letter_set_row", "found_words_percentage")]
 layout_mode = 3

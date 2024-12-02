@@ -33,6 +33,13 @@ func letter_input(letter: String) -> void:
 		letters_manager.update_tile_state(letter_tile, Enums.TileStates.USED)
 		var input_positions = board.get_input_positions()
 		letters_manager.update_tile_position(letter_tile, input_positions[current_input.size()-1])
+	else:
+		var wild_tile = letters_manager.get_wild_card_tile()
+		if wild_tile and wild_tile.state != Enums.TileStates.WILD_USED:
+			current_input.append("*")
+			letters_manager.update_tile_state(wild_tile, Enums.TileStates.WILD_USED)
+			var input_positions = board.get_input_positions()
+			letters_manager.update_tile_position(wild_tile, input_positions[current_input.size()-1])
 
 func word_submission_response(valid_submission: bool) -> void:
 	if valid_submission:
@@ -63,6 +70,13 @@ func board_reset() -> void:
 	found_words.clear()
 	board.set_found_word_percentage(0)
 
+func on_wild_card_timeout(letter_tile: LetterTile) -> void:
+	if not current_input.is_empty():
+		if current_input.has("*"):
+			var wild_idx = current_input.find("*")
+			var x = current_input.slice(0, wild_idx) + [letter_tile.letter] + current_input.slice(wild_idx+1, current_input.size())
+			current_input = x
+
 func handle_input(event: InputEventKey) -> void:
 	match event.keycode:
 		KEY_ENTER:
@@ -76,7 +90,7 @@ func handle_input(event: InputEventKey) -> void:
 			else:
 				submit_word_input.emit(self, input_to_word())
 			letters_manager.reset_all_tile_positions()
-			letters_manager.update_all_tile_states(Enums.TileStates.AVAILABLE)
+			letters_manager.set_all_tiles_available()
 			clear_current_input()
 		KEY_BACKSPACE:
 			if current_input.is_empty() or letters_manager.is_letters_frozen():
@@ -84,7 +98,10 @@ func handle_input(event: InputEventKey) -> void:
 			var letter = current_input.pop_back()
 			var letter_tile = letters_manager.get_used_letter_tile_from_back(letter)
 			if letter_tile:
-				letters_manager.update_tile_state(letter_tile, Enums.TileStates.AVAILABLE)
+				if letter_tile.state == Enums.TileStates.WILD_USED:
+					letters_manager.update_tile_state(letter_tile, Enums.TileStates.WILD)
+				else:
+					letters_manager.update_tile_state(letter_tile, Enums.TileStates.AVAILABLE)
 				letters_manager.update_tile_position(letter_tile, letter_tile.letter_set_position)
 		KEY_SPACE:
 			if letters_manager.is_letters_frozen():

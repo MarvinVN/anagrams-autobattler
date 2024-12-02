@@ -20,6 +20,19 @@ func update_all_tile_states(tile_state: int) -> void:
 	for letter_tile in letter_tiles:
 		letter_tile.state = tile_state
 
+func update_all_tile_states_by_list(states: Array) -> void:
+	var count = 0
+	for letter_tile in letter_tiles:
+		letter_tile.state = states[count]
+		count += 1
+
+func set_all_tiles_available() -> void:
+	for letter_tile in letter_tiles:
+		if letter_tile.state in [Enums.TileStates.WILD, Enums.TileStates.WILD_USED]:
+			letter_tile.state = Enums.TileStates.WILD
+		else:
+			letter_tile.state = Enums.TileStates.AVAILABLE
+
 func get_available_letter_tile(letter: String) -> LetterTile:
 	for letter_tile in letter_tiles:
 		if letter_tile.letter == letter and letter_tile.state == Enums.TileStates.AVAILABLE:
@@ -31,8 +44,9 @@ func get_used_letter_tile_from_back(letter: String) -> LetterTile:
 	for x in letter_tiles:
 		letter_tiles_reverse.push_front(x)
 	for letter_tile in letter_tiles_reverse:
-		if letter_tile.letter == letter and letter_tile.state == Enums.TileStates.USED:
-			return letter_tile
+		if letter_tile.state in [Enums.TileStates.USED, Enums.TileStates.WILD_USED]:
+			if letter_tile.letter == letter or letter_tile.state == Enums.TileStates.WILD_USED:
+				return letter_tile
 	return null
 
 func update_tile_position(letter_tile: LetterTile, position: Vector2) -> void:
@@ -63,6 +77,8 @@ func update_tile_letter(letter_tile: LetterTile, letter: String) -> void:
 
 func clear_tile_modifiers() -> void:
 	for letter_tile in letter_tiles:
+		if letter_tile.state == Enums.TileStates.WILD_USED:
+			letter_tile.state = Enums.TileStates.USED
 		if letter_tile.state not in [Enums.TileStates.AVAILABLE, Enums.TileStates.USED]:
 			letter_tile.state = Enums.TileStates.AVAILABLE
 
@@ -72,17 +88,30 @@ func get_all_tile_states() -> Array:
 		states.append(letter_tile.state)
 	return states
 
-func update_all_tile_states_by_list(states: Array) -> void:
-	var count = 0
+func reset_all_tile_sprites() -> void:
 	for letter_tile in letter_tiles:
-		letter_tile.state = states[count]
-		count += 1
+		letter_tile.set_sprite()
+
+func get_wild_card_tile() -> LetterTile:
+	for letter_tile in letter_tiles:
+		if letter_tile.state in [Enums.TileStates.WILD, Enums.TileStates.WILD_USED] :
+			return letter_tile
+	return null
 
 func is_letters_frozen() -> bool:
 	for letter_tile in letter_tiles:
 		if letter_tile.state != Enums.TileStates.FROZEN:
 			return false
 	return true
+
+func has_wild_card() -> bool:
+	for letter_tile in letter_tiles:
+		if letter_tile.state == Enums.TileStates.WILD:
+			return true
+	return false
+
+func on_wild_card_tile() -> void:
+	pass
 
 func _on_letters_change(letter_set: Array) -> void:
 	update_all_tile_letters(letter_set)

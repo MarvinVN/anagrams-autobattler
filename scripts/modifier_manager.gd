@@ -18,6 +18,9 @@ func _process(delta: float) -> void:
 		modifier_panel.update_timer_progress_bar(timer.time_left, timer.wait_time)
 
 func use_modifier(player: InputManager, modifier: int) -> void:
+	if not timer.is_stopped():
+		print("modifier already in use!")
+		return
 	affected_player = player
 	match modifier:
 		Enums.Modifiers.ADD_LETTER: use_add_letter_mod()
@@ -29,6 +32,9 @@ func use_modifier(player: InputManager, modifier: int) -> void:
 
 func clear_modifier() -> void:
 	timer.stop()
+	var wild_tile = letters_manager.get_wild_card_tile()
+	if wild_tile:
+		affected_player.on_wild_card_timeout(wild_tile)
 	if affected_player.letters_manager.is_letters_frozen():
 		letters_manager.update_all_tile_states_by_list(previous_states)
 		previous_states.clear()
@@ -36,6 +42,7 @@ func clear_modifier() -> void:
 		affected_player.letters_manager.clear_tile_modifiers()
 	affected_player = null
 	modifier_panel.hide_panel()
+	letters_manager.reset_all_tile_sprites()
 
 # TODO: do in own ticket
 func use_add_letter_mod() -> void:
@@ -56,8 +63,11 @@ func use_lock_mod() -> void:
 	modifier_panel.update_modifier_text("LOCK LETTER")
 
 func use_wild_card_mod() -> void:
-	print("wild card")
-	pass
+	var wild_tile = letters_manager.get_random_tile()
+	letters_manager.update_tile_state(wild_tile, Enums.TileStates.WILD)
+	timer.wait_time = WILD_CARD_DURATION
+	modifier_panel.update_modifier_text("WILD CARD")
+	wild_tile.set_sprite("wild")
 
 func give_random_mod(player: InputManager) -> void:
 	player.current_modifier = Enums.Modifiers.values().pick_random()
