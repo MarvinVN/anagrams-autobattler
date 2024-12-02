@@ -2,18 +2,25 @@ class_name InputManager
 extends Node
 
 signal submit_word_input
+signal use_modifier
+signal modifier_change
 
 @export var word_manager: WordManager
 @export var letters_manager: LettersManager
+@export var modifier_manager: ModifierManager
 @export var board: AnagramsBoard
+@export var player_panel: PlayerPanel
 
 const RESET_PERCENT_THRESHOLD = 60
 
 var current_input: Array = []
+var current_modifier: int = -1
 var found_words: Dictionary = {}
 
 func _ready() -> void:
 	submit_word_input.connect(word_manager.word_submission)
+	use_modifier.connect(modifier_manager.use_modifier)
+	modifier_change.connect(player_panel.update_modifier_icon)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
@@ -47,11 +54,11 @@ func input_to_word() -> String:
 		word += char
 	return word
 
-func clear_current_input() -> void:
-	current_input.clear()
-
 func get_percentage_found() -> float:
 	return 100.0 * float(found_words.size()) / word_manager.valid_words.size()
+
+func clear_current_input() -> void:
+	current_input.clear()
 
 func board_reset() -> void:
 	clear_current_input()
@@ -89,58 +96,51 @@ func handle_input(event: InputEventKey) -> void:
 		KEY_CTRL:
 			if not word_manager.letter_set:
 				word_manager.reset_board()
-		KEY_A: 
-			letter_input("a")
-		KEY_B:
-			letter_input("b")
-		KEY_C:
-			letter_input("c")
-		KEY_D:
-			letter_input("d")
-		KEY_E:
-			letter_input("e")
-		KEY_F:
-			letter_input("f")
-		KEY_G:
-			letter_input("g")
-		KEY_H:
-			letter_input("h")
-		KEY_I:
-			letter_input("i")
-		KEY_J:
-			letter_input("j")
-		KEY_K:
-			letter_input("k")
-		KEY_L:
-			letter_input("l")
-		KEY_M:
-			letter_input("m")
-		KEY_N:
-			letter_input("n")
-		KEY_O:
-			letter_input("o")
-		KEY_P:
-			letter_input("p")
-		KEY_Q:
-			letter_input("q")
-		KEY_R:
-			letter_input("r")
-		KEY_S:
-			letter_input("s")
-		KEY_T:
-			letter_input("t")
-		KEY_U:
-			letter_input("u")
-		KEY_V:
-			letter_input("v")
-		KEY_W:
-			letter_input("w")
-		KEY_X:
-			letter_input("x")
-		KEY_Y:
-			letter_input("y")
-		KEY_Z:
-			letter_input("z")
+		KEY_1: 
+			if current_modifier > -1:
+				use_modifier.emit(self, current_modifier)
+				current_modifier = -1
+				modifier_change.emit(current_modifier)
+			else:
+				print("no modifier held!")
+		KEY_2: 
+			modifier_manager.give_add_letter_mod(self)
+			modifier_change.emit(current_modifier)
+		KEY_3: 
+			modifier_manager.give_freeze_mod(self)
+			modifier_change.emit(current_modifier)
+		KEY_4: 
+			modifier_manager.give_lock_mod(self)
+			modifier_change.emit(current_modifier)
+		KEY_5: 
+			modifier_manager.give_wild_card_mod(self)
+			modifier_change.emit(current_modifier)
+		KEY_A: letter_input("a")
+		KEY_B: letter_input("b")
+		KEY_C: letter_input("c")
+		KEY_D: letter_input("d")
+		KEY_E: letter_input("e")
+		KEY_F: letter_input("f")
+		KEY_G: letter_input("g")
+		KEY_H: letter_input("h")
+		KEY_I: letter_input("i")
+		KEY_J: letter_input("j")
+		KEY_K: letter_input("k")
+		KEY_L: letter_input("l")
+		KEY_M: letter_input("m")
+		KEY_N: letter_input("n")
+		KEY_O: letter_input("o")
+		KEY_P: letter_input("p")
+		KEY_Q: letter_input("q")
+		KEY_R: letter_input("r")
+		KEY_S: letter_input("s")
+		KEY_T: letter_input("t")
+		KEY_U: letter_input("u")
+		KEY_V: letter_input("v")
+		KEY_W: letter_input("w")
+		KEY_X: letter_input("x")
+		KEY_Y: letter_input("y")
+		KEY_Z: letter_input("z")
 	print(current_input)
 
 func _on_new_letter_set(letter_set: Array) -> void:

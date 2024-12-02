@@ -75,5 +75,13 @@ enum TileStates {
 	AVAILABLE,
 	USED,
 	LOCKED,
-	FROZEN
+	FROZEN,
+	WILD
+}
+
+enum Modifiers {
+	ADD_LETTER,
+	FREEZE,
+	LOCK,
+	WILD_CARD
 }

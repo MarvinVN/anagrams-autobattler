@@ -10,6 +10,9 @@ var letter_sprites: Dictionary
 func _init() -> void:
 	init_letter_sprites()
 
+func get_random_tile() -> LetterTile:
+	return letter_tiles.pick_random()
+
 func update_tile_state(letter_tile: LetterTile, tile_state: int) -> void:
 	letter_tiles[letter_tiles.find(letter_tile)].state = tile_state
 
@@ -55,8 +58,13 @@ func update_all_tile_letters(letter_set: Array) -> void:
 		update_tile_letter(letter_tile, letter_set_string[count])
 		count += 1
 	
-func update_tile_letter(letter_tile: LetterTile, letter: String):
+func update_tile_letter(letter_tile: LetterTile, letter: String) -> void:
 	letter_tile.set_letter(letter)
+
+func clear_tile_modifiers() -> void:
+	for letter_tile in letter_tiles:
+		if letter_tile.state not in [Enums.TileStates.AVAILABLE, Enums.TileStates.USED]:
+			letter_tile.state = Enums.TileStates.AVAILABLE
 
 func _on_letters_change(letter_set: Array) -> void:
 	update_all_tile_letters(letter_set)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://buqlkb5fix0v7"]
+[gd_scene load_steps=10 format=3 uid="uid://buqlkb5fix0v7"]
 
 [ext_resource type="Script" path="res://scripts/word_bank.gd" id="1_lnjm5"]
 [ext_resource type="Script" path="res://scripts/word_manager.gd" id="2_u7o1d"]
@@ -6,6 +6,9 @@
 [ext_resource type="Script" path="res://scenes/anagrams_board.gd" id="3_vykcw"]
 [ext_resource type="Script" path="res://scripts/letter_tile.gd" id="3_yks5r"]
 [ext_resource type="Script" path="res://scripts/input_manager.gd" id="5_c0i84"]
+[ext_resource type="Script" path="res://scripts/modifier_manager.gd" id="6_pikx7"]
+[ext_resource type="Script" path="res://scripts/player_panel.gd" id="8_41biu"]
+[ext_resource type="Script" path="res://scripts/modifier_panel.gd" id="9_rxbku"]
 
 [node name="AnagramsRoot" type="Node2D"]
 
@@ -14,14 +17,14 @@ script = ExtResource("1_lnjm5")
 
 [node name="WordManager" type="Node" parent="." node_paths=PackedStringArray("board", "word_bank")]
 script = ExtResource("2_u7o1d")
-board = NodePath("../Board")
+board = NodePath("../AnagramsBoard")
 word_bank = NodePath("../WordBank")
 
 [node name="Timer" type="Timer" parent="WordManager"]
 
 [node name="LettersManager" type="Node" parent="." node_paths=PackedStringArray("board")]
 script = ExtResource("3_0d0x2")
-board = NodePath("../Board")
+board = NodePath("../AnagramsBoard")
 
 [node name="LetterTile1" type="Node2D" parent="LettersManager"]
 script = ExtResource("3_yks5r")
@@ -53,19 +56,27 @@ script = ExtResource("3_yks5r")
 
 [node name="Sprite2D" type="Sprite2D" parent="LettersManager/LetterTile6"]
 
-[node name="InputManager" type="Node" parent="." node_paths=PackedStringArray("word_manager", "letters_manager", "board")]
+[node name="InputManager" type="Node" parent="." node_paths=PackedStringArray("word_manager", "letters_manager", "modifier_manager", "board", "player_panel")]
 script = ExtResource("5_c0i84")
 word_manager = NodePath("../WordManager")
 letters_manager = NodePath("../LettersManager")
-board = NodePath("../Board")
+modifier_manager = NodePath("../ModifierManager")
+board = NodePath("../AnagramsBoard")
+player_panel = NodePath("../PlayerPanel")
 
-[node name="Board" type="Control" parent="." node_paths=PackedStringArray("timer", "input_row", "letter_set_row", "found_words_percentage")]
+[node name="ModifierManager" type="Node" parent="." node_paths=PackedStringArray("letters_manager")]
+script = ExtResource("6_pikx7")
+letters_manager = NodePath("../LettersManager")
+
+[node name="Timer" type="Timer" parent="ModifierManager"]
+
+[node name="AnagramsBoard" type="Control" parent="." node_paths=PackedStringArray("timer", "input_row", "letter_set_row", "found_words_percentage")]
 layout_mode = 3
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 348.0
-offset_right = 810.0
+offset_left = 330.0
+offset_right = 792.0
 offset_bottom = 367.0
 grow_horizontal = 2
 script = ExtResource("3_vykcw")
@@ -74,20 +85,20 @@ input_row = NodePath("VBoxContainer/LettersContainer/InputRow")
 letter_set_row = NodePath("VBoxContainer/LettersContainer/LetterSetRow")
 found_words_percentage = NodePath("VBoxContainer/HBoxContainer/Container/FoundWordsPercentage")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Board"]
+[node name="VBoxContainer" type="VBoxContainer" parent="AnagramsBoard"]
 layout_mode = 2
 offset_left = -125.0
 offset_top = 10.0
 offset_right = 601.0
 offset_bottom = 248.0
 
-[node name="Label" type="Label" parent="Board/VBoxContainer"]
+[node name="Label" type="Label" parent="AnagramsBoard/VBoxContainer"]
 z_index = 1
 y_sort_enabled = true
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/Label"]
+[node name="Panel" type="Panel" parent="AnagramsBoard/VBoxContainer/Label"]
 z_index = -1
 y_sort_enabled = true
 layout_mode = 1
@@ -99,144 +110,192 @@ offset_right = -195.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LettersContainer" type="VBoxContainer" parent="Board/VBoxContainer"]
+[node name="LettersContainer" type="VBoxContainer" parent="AnagramsBoard/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 80
 
-[node name="LetterSetRow" type="HBoxContainer" parent="Board/VBoxContainer/LettersContainer"]
+[node name="LetterSetRow" type="HBoxContainer" parent="AnagramsBoard/VBoxContainer/LettersContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 alignment = 1
 
-[node name="Letter1" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/LetterSetRow"]
+[node name="Letter1" type="CenterContainer" parent="AnagramsBoard/VBoxContainer/LettersContainer/LetterSetRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/LetterSetRow/Letter1"]
+[node name="Panel" type="Panel" parent="AnagramsBoard/VBoxContainer/LettersContainer/LetterSetRow/Letter1"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="Letter2" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/LetterSetRow"]
+[node name="Letter2" type="CenterContainer" parent="AnagramsBoard/VBoxContainer/LettersContainer/LetterSetRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/LetterSetRow/Letter2"]
+[node name="Panel" type="Panel" parent="AnagramsBoard/VBoxContainer/LettersContainer/LetterSetRow/Letter2"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="Letter3" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/LetterSetRow"]
+[node name="Letter3" type="CenterContainer" parent="AnagramsBoard/VBoxContainer/LettersContainer/LetterSetRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/LetterSetRow/Letter3"]
+[node name="Panel" type="Panel" parent="AnagramsBoard/VBoxContainer/LettersContainer/LetterSetRow/Letter3"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="Letter4" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/LetterSetRow"]
+[node name="Letter4" type="CenterContainer" parent="AnagramsBoard/VBoxContainer/LettersContainer/LetterSetRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/LetterSetRow/Letter4"]
+[node name="Panel" type="Panel" parent="AnagramsBoard/VBoxContainer/LettersContainer/LetterSetRow/Letter4"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="Letter5" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/LetterSetRow"]
+[node name="Letter5" type="CenterContainer" parent="AnagramsBoard/VBoxContainer/LettersContainer/LetterSetRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/LetterSetRow/Letter5"]
+[node name="Panel" type="Panel" parent="AnagramsBoard/VBoxContainer/LettersContainer/LetterSetRow/Letter5"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="Letter6" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/LetterSetRow"]
+[node name="Letter6" type="CenterContainer" parent="AnagramsBoard/VBoxContainer/LettersContainer/LetterSetRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/LetterSetRow/Letter6"]
+[node name="Panel" type="Panel" parent="AnagramsBoard/VBoxContainer/LettersContainer/LetterSetRow/Letter6"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="InputRow" type="HBoxContainer" parent="Board/VBoxContainer/LettersContainer"]
+[node name="InputRow" type="HBoxContainer" parent="AnagramsBoard/VBoxContainer/LettersContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 alignment = 1
 
-[node name="InputSlot1" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/InputRow"]
+[node name="InputSlot1" type="CenterContainer" parent="AnagramsBoard/VBoxContainer/LettersContainer/InputRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/InputRow/InputSlot1"]
+[node name="Panel" type="Panel" parent="AnagramsBoard/VBoxContainer/LettersContainer/InputRow/InputSlot1"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="InputSlot2" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/InputRow"]
+[node name="InputSlot2" type="CenterContainer" parent="AnagramsBoard/VBoxContainer/LettersContainer/InputRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/InputRow/InputSlot2"]
+[node name="Panel" type="Panel" parent="AnagramsBoard/VBoxContainer/LettersContainer/InputRow/InputSlot2"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="InputSlot3" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/InputRow"]
+[node name="InputSlot3" type="CenterContainer" parent="AnagramsBoard/VBoxContainer/LettersContainer/InputRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/InputRow/InputSlot3"]
+[node name="Panel" type="Panel" parent="AnagramsBoard/VBoxContainer/LettersContainer/InputRow/InputSlot3"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="InputSlot4" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/InputRow"]
+[node name="InputSlot4" type="CenterContainer" parent="AnagramsBoard/VBoxContainer/LettersContainer/InputRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/InputRow/InputSlot4"]
+[node name="Panel" type="Panel" parent="AnagramsBoard/VBoxContainer/LettersContainer/InputRow/InputSlot4"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="InputSlot5" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/InputRow"]
+[node name="InputSlot5" type="CenterContainer" parent="AnagramsBoard/VBoxContainer/LettersContainer/InputRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/InputRow/InputSlot5"]
+[node name="Panel" type="Panel" parent="AnagramsBoard/VBoxContainer/LettersContainer/InputRow/InputSlot5"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="InputSlot6" type="CenterContainer" parent="Board/VBoxContainer/LettersContainer/InputRow"]
+[node name="InputSlot6" type="CenterContainer" parent="AnagramsBoard/VBoxContainer/LettersContainer/InputRow"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Board/VBoxContainer/LettersContainer/InputRow/InputSlot6"]
+[node name="Panel" type="Panel" parent="AnagramsBoard/VBoxContainer/LettersContainer/InputRow/InputSlot6"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Board/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="AnagramsBoard/VBoxContainer"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="Container" type="HBoxContainer" parent="Board/VBoxContainer/HBoxContainer"]
+[node name="Container" type="HBoxContainer" parent="AnagramsBoard/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="Label" type="Label" parent="Board/VBoxContainer/HBoxContainer/Container"]
+[node name="Label" type="Label" parent="AnagramsBoard/VBoxContainer/HBoxContainer/Container"]
 layout_mode = 2
 text = "Words Found:"
 
-[node name="FoundWordsPercentage" type="ProgressBar" parent="Board/VBoxContainer/HBoxContainer/Container"]
+[node name="FoundWordsPercentage" type="ProgressBar" parent="AnagramsBoard/VBoxContainer/HBoxContainer/Container"]
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 
-[node name="TextEdit" type="Label" parent="Board/VBoxContainer/HBoxContainer"]
+[node name="TextEdit" type="Label" parent="AnagramsBoard/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "[SPACE] for a new letter set (60%)"
 
-[node name="Label" type="Label" parent="Board/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="AnagramsBoard/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "[TAB] to shuffle letters"
+
+[node name="PlayerPanel" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 10.0
+offset_right = 149.0
+offset_bottom = 385.0
+script = ExtResource("8_41biu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerPanel"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 10.0
+offset_right = 105.0
+offset_bottom = 305.0
+theme_override_constants/separation = 15
+
+[node name="Modifier" type="CenterContainer" parent="PlayerPanel/VBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerPanel/VBoxContainer/Modifier"]
+
+[node name="ModifierPanel" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 795.0
+offset_top = 89.0
+offset_right = 970.0
+offset_bottom = 158.0
+script = ExtResource("9_rxbku")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ModifierPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ModifierPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="ModifierPanel/VBoxContainer"]
+layout_mode = 2
+show_percentage = false
 
 [connection signal="letter_set_shuffled" from="WordManager" to="LettersManager" method="_on_letters_change"]
 [connection signal="letter_set_shuffled" from="WordManager" to="InputManager" method="_on_shuffled_letter_set"]
 [connection signal="new_letter_set" from="WordManager" to="LettersManager" method="_on_letters_change"]
 [connection signal="new_letter_set" from="WordManager" to="InputManager" method="_on_new_letter_set"]
 [connection signal="timeout" from="WordManager/Timer" to="WordManager" method="_on_timer_timeout"]
+[connection signal="timeout" from="ModifierManager/Timer" to="ModifierManager" method="_on_timer_timeout"]
