@@ -44,8 +44,6 @@ func get_used_letter_tile_from_back(letter: String) -> LetterTile:
 	for x in letter_tiles:
 		letter_tiles_reverse.push_front(x)
 	for letter_tile in letter_tiles_reverse:
-		print("tile letter %s, expected letter %s " % [letter_tile.letter, letter])
-		print(letter_tile.state)
 		if letter_tile.state == Enums.TileStates.USED and letter_tile.letter == letter:
 			return letter_tile
 		if letter_tile.state == Enums.TileStates.WILD_USED and letter in Enums.UPPER_ALPHABET:

@@ -97,7 +97,6 @@ func handle_input(event: InputEventKey) -> void:
 				return
 			var letter = current_input.pop_back()
 			var letter_tile = letters_manager.get_used_letter_tile_from_back(letter)
-			print(letter_tile)
 			if letter_tile:
 				if letter_tile.state == Enums.TileStates.WILD_USED:
 					letters_manager.update_tile_state(letter_tile, Enums.TileStates.WILD)
