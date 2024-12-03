@@ -9,7 +9,6 @@ signal letter_set_shuffled
 @export var board: AnagramsBoard
 @export var word_bank: WordBank
 
-const ALPHABET = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 const DEFAULT_TIME: float = 60.0
 
 var letter_set: Array
@@ -75,16 +74,18 @@ func generate_words(word: String, remaining_letters: Array, current_idx: int, va
 
 func word_submission(input_manager: InputManager, word: String) -> void:
 	var is_valid_word = false
-	if word.contains("*"):
-		for letter in ALPHABET: 
-			var wild_idx = word.find("*")
-			var wild_word = word.left(wild_idx) + letter + word.right(word.length()-wild_idx-1)
-			is_valid_word = wild_word in word_bank.words
-			if is_valid_word:
-				break
+	if word_has_wild_card(word):
+		is_valid_word = word.to_lower() in word_bank.words
 	else:
 		is_valid_word = word in valid_words
+		
 	input_manager.word_submission_response(is_valid_word)
+
+func word_has_wild_card(word: String) -> bool:
+	for char in word:
+		if char in Enums.UPPER_ALPHABET:
+			return true
+	return false
 
 func _on_timer_timeout() -> void:
 	reset_board()

@@ -48,7 +48,7 @@ func get_used_letter_tile_from_back(letter: String) -> LetterTile:
 		print(letter_tile.state)
 		if letter_tile.state == Enums.TileStates.USED and letter_tile.letter == letter:
 			return letter_tile
-		if letter_tile.state == Enums.TileStates.WILD_USED and letter == "*":
+		if letter_tile.state == Enums.TileStates.WILD_USED and letter in Enums.UPPER_ALPHABET:
 			return letter_tile
 	return null
 

@@ -36,7 +36,7 @@ func letter_input(letter: String) -> void:
 	else:
 		var wild_tile = letters_manager.get_wild_card_tile()
 		if wild_tile and wild_tile.state != Enums.TileStates.WILD_USED:
-			current_input.append("*")
+			current_input.append(letter.to_upper())
 			letters_manager.update_tile_state(wild_tile, Enums.TileStates.WILD_USED)
 			var input_positions = board.get_input_positions()
 			letters_manager.update_tile_position(wild_tile, input_positions[current_input.size()-1])
@@ -72,10 +72,10 @@ func board_reset() -> void:
 
 func on_wild_card_timeout(letter_tile: LetterTile) -> void:
 	if not current_input.is_empty():
-		if current_input.has("*"):
-			var wild_idx = current_input.find("*")
-			var x = current_input.slice(0, wild_idx) + [letter_tile.letter] + current_input.slice(wild_idx+1, current_input.size())
-			current_input = x
+		for char in current_input:
+			if char in Enums.UPPER_ALPHABET:
+				var wild_idx = current_input.find(char)
+				current_input[wild_idx] = letter_tile.letter
 
 func handle_input(event: InputEventKey) -> void:
 	match event.keycode:
