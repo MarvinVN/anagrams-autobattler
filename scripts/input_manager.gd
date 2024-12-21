@@ -8,6 +8,7 @@ signal modifier_change
 @export var word_manager: WordManager
 @export var letters_manager: LettersManager
 @export var modifier_manager: ModifierManager
+@export var audio_manager: AudioManager
 @export var board: AnagramsBoard
 @export var player_panel: PlayerPanel
 
@@ -33,6 +34,7 @@ func letter_input(letter: String) -> void:
 		letters_manager.update_tile_state(letter_tile, Enums.TileStates.USED)
 		var input_positions = board.get_input_positions()
 		letters_manager.update_tile_position(letter_tile, input_positions[current_input.size()-1])
+		audio_manager.play_input()
 	else:
 		var wild_tile = letters_manager.get_wild_card_tile()
 		if wild_tile and wild_tile.state != Enums.TileStates.WILD_USED:
@@ -40,6 +42,7 @@ func letter_input(letter: String) -> void:
 			letters_manager.update_tile_state(wild_tile, Enums.TileStates.WILD_USED)
 			var input_positions = board.get_input_positions()
 			letters_manager.update_tile_position(wild_tile, input_positions[current_input.size()-1])
+			audio_manager.play_input()
 
 func word_submission_response(valid_submission: bool) -> void:
 	if valid_submission:
@@ -52,6 +55,7 @@ func word_submission_response(valid_submission: bool) -> void:
 		print("word found!")
 	else:
 		print("invalid word")
+		audio_manager.play_invalid()
 
 func input_to_word() -> String:
 	var word = ""
@@ -85,6 +89,7 @@ func handle_input(event: InputEventKey) -> void:
 			var word = input_to_word()
 			if word.length() < 3:
 				print("shorty word")
+				audio_manager.play_invalid()
 			elif word in found_words:
 				print("word already found!")
 			else:
@@ -113,6 +118,7 @@ func handle_input(event: InputEventKey) -> void:
 		KEY_TAB:
 			if word_manager.letter_set and not letters_manager.is_letters_frozen():
 				word_manager.shuffle_letter_set()
+				audio_manager.play_shuffle()
 		KEY_CTRL:
 			if not word_manager.letter_set:
 				word_manager.reset_board()
