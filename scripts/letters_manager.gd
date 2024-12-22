@@ -51,19 +51,23 @@ func get_used_letter_tile_from_back(letter: String) -> LetterTile:
 	return null
 
 func update_tile_position(letter_tile: LetterTile, position: Vector2) -> void:
-	letter_tile.position = position
+	var tween = create_tween()
+	tween.tween_property(letter_tile, "position", position, 0.05).from_current()
+	#await tween.finished
+	#letter_tile.position = position
 
 func update_all_tile_positions() -> void:
 	var positions = board.get_letter_positions()
 	var count = 0
 	for letter_tile in letter_tiles:
-		letter_tile.position = positions[count]
-		letter_tile.letter_set_position = letter_tile.position
+		#letter_tile.position = positions[count]
+		update_tile_position(letter_tile, positions[count])
+		letter_tile.letter_set_position = positions[count]
 		count += 1
 
 func reset_all_tile_positions() -> void:
 	for letter_tile in letter_tiles:
-		letter_tile.position = letter_tile.letter_set_position
+		update_tile_position(letter_tile, letter_tile.letter_set_position)
 
 func update_all_tile_letters(letter_set: Array) -> void:
 	update_all_tile_positions()
