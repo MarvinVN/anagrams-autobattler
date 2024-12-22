@@ -28,10 +28,10 @@ func update_all_tile_states_by_list(states: Array) -> void:
 
 func set_all_tiles_available() -> void:
 	for letter_tile in letter_tiles:
-		if letter_tile.state in [Enums.TileStates.WILD, Enums.TileStates.WILD_USED]:
-			letter_tile.state = Enums.TileStates.WILD
-		else:
-			letter_tile.state = Enums.TileStates.AVAILABLE
+		match letter_tile.state:
+			Enums.TileStates.WILD, Enums.TileStates.WILD_USED: letter_tile.state = Enums.TileStates.WILD
+			Enums.TileStates.LOCKED: pass
+			_: letter_tile.state = Enums.TileStates.AVAILABLE
 
 func get_available_letter_tile(letter: String) -> LetterTile:
 	var locked_letter_tile = null
