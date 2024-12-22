@@ -34,9 +34,24 @@ func set_all_tiles_available() -> void:
 			letter_tile.state = Enums.TileStates.AVAILABLE
 
 func get_available_letter_tile(letter: String) -> LetterTile:
+	var locked_letter_tile = null
 	for letter_tile in letter_tiles:
-		if letter_tile.letter == letter and letter_tile.state == Enums.TileStates.AVAILABLE:
-			return letter_tile
+		if letter_tile.letter == letter: 
+			match letter_tile.state:
+				Enums.TileStates.AVAILABLE: return letter_tile
+				Enums.TileStates.LOCKED: locked_letter_tile = letter_tile
+				Enums.TileStates.FROZEN:
+					var position = letter_tile.position
+					var tween = create_tween()
+					tween.tween_property(letter_tile, "position", position+Vector2(5,0), 0.05)
+					tween.tween_property(letter_tile, "position", position-Vector2(5,0), 0.05)
+					tween.tween_property(letter_tile, "position", position, 0.05).set_trans(Tween.TRANS_BOUNCE)
+					break
+	if locked_letter_tile:
+		var tween = create_tween()
+		tween.tween_property(locked_letter_tile, "rotation_degrees", 20, 0.05)
+		tween.tween_property(locked_letter_tile, "rotation_degrees", -20, 0.05)
+		tween.tween_property(locked_letter_tile, "rotation_degrees", 0, 0.05).set_trans(Tween.TRANS_BOUNCE)
 	return null
 
 func get_used_letter_tile_from_back(letter: String) -> LetterTile:

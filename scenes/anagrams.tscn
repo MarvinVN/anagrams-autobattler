@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://buqlkb5fix0v7"]
+[gd_scene load_steps=19 format=3 uid="uid://buqlkb5fix0v7"]
 
 [ext_resource type="Script" path="res://scripts/word_bank.gd" id="1_lnjm5"]
 [ext_resource type="Script" path="res://scripts/word_manager.gd" id="2_u7o1d"]
@@ -13,6 +13,10 @@
 [ext_resource type="AudioStream" uid="uid://bujv2pqtwuiy6" path="res://assets/sounds/error_style_2_001.wav" id="8_ekeai"]
 [ext_resource type="AudioStream" uid="uid://dbw3eeb40p6lu" path="res://assets/sounds/JDSherbert - Ultimate UI SFX Pack - Swipe - 1.mp3" id="9_5a1dn"]
 [ext_resource type="Script" path="res://scripts/modifier_panel.gd" id="9_rxbku"]
+[ext_resource type="AudioStream" uid="uid://i2wtdavj8e8t" path="res://assets/sounds/confirm_style_2_001.wav" id="10_hdn5f"]
+[ext_resource type="AudioStream" uid="uid://eloklrqjms5" path="res://assets/sounds/confirm_style_2_003.wav" id="11_ctwea"]
+[ext_resource type="AudioStream" uid="uid://cdvmilu5822t0" path="res://assets/sounds/confirm_style_2_005.wav" id="12_c8dw3"]
+[ext_resource type="AudioStream" uid="uid://1ieyhqeikjtw" path="res://assets/sounds/confirm_style_6_001.wav" id="13_rdrqn"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_s2vdc"]
 random_pitch = 1.1
@@ -86,11 +90,14 @@ audio_manager = NodePath("../AudioManager")
 board = NodePath("../AnagramsBoard")
 player_panel = NodePath("../PlayerPanel")
 
-[node name="AudioManager" type="Node" parent="." node_paths=PackedStringArray("audio_input", "audio_invalid", "audio_valid_word", "audio_shuffle", "audio_lock_mod", "audio_use_locked_letter", "audio_freeze_mod", "audio_use_frozen_letter", "audio_wildcard_mod")]
+[node name="AudioManager" type="Node" parent="." node_paths=PackedStringArray("audio_input", "audio_invalid", "audio_valid_word_3", "audio_valid_word_4", "audio_valid_word_5", "audio_valid_word_6", "audio_shuffle", "audio_lock_mod", "audio_use_locked_letter", "audio_freeze_mod", "audio_use_frozen_letter", "audio_wildcard_mod")]
 script = ExtResource("7_8w34g")
 audio_input = NodePath("input")
 audio_invalid = NodePath("invalid")
-audio_valid_word = NodePath("validWord")
+audio_valid_word_3 = NodePath("validWord3")
+audio_valid_word_4 = NodePath("validWord4")
+audio_valid_word_5 = NodePath("validWord5")
+audio_valid_word_6 = NodePath("validWord6")
 audio_shuffle = NodePath("shuffle")
 audio_lock_mod = NodePath("lockMod")
 audio_use_locked_letter = NodePath("useLockedLetter")
@@ -104,7 +111,17 @@ stream = SubResource("AudioStreamRandomizer_s2vdc")
 [node name="invalid" type="AudioStreamPlayer" parent="AudioManager"]
 stream = ExtResource("8_ekeai")
 
-[node name="validWord" type="AudioStreamPlayer" parent="AudioManager"]
+[node name="validWord3" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("10_hdn5f")
+
+[node name="validWord4" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("11_ctwea")
+
+[node name="validWord5" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("12_c8dw3")
+
+[node name="validWord6" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("13_rdrqn")
 
 [node name="shuffle" type="AudioStreamPlayer" parent="AudioManager"]
 stream = ExtResource("9_5a1dn")
