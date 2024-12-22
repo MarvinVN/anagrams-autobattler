@@ -53,14 +53,11 @@ func get_used_letter_tile_from_back(letter: String) -> LetterTile:
 func update_tile_position(letter_tile: LetterTile, position: Vector2) -> void:
 	var tween = create_tween()
 	tween.tween_property(letter_tile, "position", position, 0.05).from_current()
-	#await tween.finished
-	#letter_tile.position = position
 
 func update_all_tile_positions() -> void:
 	var positions = board.get_letter_positions()
 	var count = 0
 	for letter_tile in letter_tiles:
-		#letter_tile.position = positions[count]
 		update_tile_position(letter_tile, positions[count])
 		letter_tile.letter_set_position = positions[count]
 		count += 1
@@ -114,9 +111,6 @@ func has_wild_card() -> bool:
 		if letter_tile.state == Enums.TileStates.WILD:
 			return true
 	return false
-
-func on_wild_card_tile() -> void:
-	pass
 
 func _on_letters_change(letter_set: Array) -> void:
 	update_all_tile_letters(letter_set)
