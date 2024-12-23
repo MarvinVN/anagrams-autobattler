@@ -2,6 +2,7 @@ class_name LettersManager
 extends Node
 
 @export var board: AnagramsBoard
+@export var audio_manager: AudioManager
 
 @onready var letter_tiles: Array = get_children()
 
@@ -46,12 +47,14 @@ func get_available_letter_tile(letter: String) -> LetterTile:
 					tween.tween_property(letter_tile, "position", position+Vector2(5,0), 0.05)
 					tween.tween_property(letter_tile, "position", position-Vector2(5,0), 0.05)
 					tween.tween_property(letter_tile, "position", position, 0.05).set_trans(Tween.TRANS_BOUNCE)
+					audio_manager.play_use_frozen_letter()
 					break
 	if locked_letter_tile:
 		var tween = create_tween()
 		tween.tween_property(locked_letter_tile, "rotation_degrees", 20, 0.05)
 		tween.tween_property(locked_letter_tile, "rotation_degrees", -20, 0.05)
 		tween.tween_property(locked_letter_tile, "rotation_degrees", 0, 0.05).set_trans(Tween.TRANS_BOUNCE)
+		audio_manager.play_use_locked_letter()
 	return null
 
 func get_used_letter_tile_from_back(letter: String) -> LetterTile:

@@ -3,7 +3,9 @@ extends Node
 
 @onready var timer: Timer = $Timer
 @onready var modifier_panel: ModifierPanel = $"../ModifierPanel"
+
 @export var letters_manager: LettersManager
+@export var audio_manager: AudioManager
 
 const ADD_LETTER_DURATION: float = 20.0
 const FREEZE_DURATION: float = 10.0
@@ -55,6 +57,7 @@ func use_freeze_mod() -> void:
 	letters_manager.update_all_tile_states(Enums.TileStates.FROZEN)
 	timer.wait_time = FREEZE_DURATION
 	modifier_panel.update_modifier_text("FREEZE LETTERS")
+	audio_manager.play_freeze_mod()
 
 # TODO: currently affects user, make affect the other player
 func use_lock_mod() -> void:
