@@ -68,6 +68,15 @@ func get_used_letter_tile_from_back(letter: String) -> LetterTile:
 			return letter_tile
 	return null
 
+func play_shuffle_animation() -> void:
+	var letter_positions = board.get_letter_positions()
+	var count = 0
+	for letter_tile in letter_tiles:
+		var tween = create_tween()
+		tween.tween_property(letter_tile, "position", board.get_middle_letter_position(), 0.05)
+		tween.tween_property(letter_tile, "position", letter_positions[count], 0.1)
+		count += 1
+
 func update_tile_position(letter_tile: LetterTile, position: Vector2) -> void:
 	var tween = create_tween()
 	tween.tween_property(letter_tile, "position", position, 0.05).from_current()

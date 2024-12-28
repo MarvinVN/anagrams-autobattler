@@ -122,6 +122,7 @@ func handle_input(event: InputEventKey) -> void:
 				print("not enough words found!")
 		KEY_TAB:
 			if word_manager.letter_set and not letters_manager.is_letters_frozen():
+				letters_manager.play_shuffle_animation()
 				word_manager.shuffle_letter_set()
 				audio_manager.play_shuffle()
 		KEY_CTRL:
