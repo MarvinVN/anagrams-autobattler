@@ -1,7 +1,9 @@
-[gd_scene load_steps=31 format=3 uid="uid://c514qm0j213r3"]
+[gd_scene load_steps=33 format=3 uid="uid://c514qm0j213r3"]
 
 [ext_resource type="Script" path="res://scripts/pawn.gd" id="1_ataya"]
 [ext_resource type="Texture2D" uid="uid://dbie4wfs8j4fy" path="res://assets/Tiny Swords/Factions/Knights/Troops/Pawn/Blue/Pawn_Blue.png" id="1_t206r"]
+[ext_resource type="Script" path="res://scripts/health_bar.gd" id="3_0iqj7"]
+[ext_resource type="Script" path="res://scripts/health_component.gd" id="3_xxcrl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n6kei"]
 atlas = ExtResource("1_t206r")
@@ -229,7 +231,7 @@ visible = false
 position = Vector2(0, -4)
 shape = SubResource("CapsuleShape2D_nkvl4")
 
-[node name="HealthBar" type="ProgressBar" parent="."]
+[node name="HealthBar" type="ProgressBar" parent="." node_paths=PackedStringArray("health_component")]
 offset_left = -30.0
 offset_top = -60.0
 offset_right = 30.0
@@ -238,3 +240,9 @@ theme_override_styles/background = SubResource("StyleBoxFlat_j0ofn")
 theme_override_styles/fill = SubResource("StyleBoxFlat_qq4v5")
 value = 50.0
 show_percentage = false
+script = ExtResource("3_0iqj7")
+health_component = NodePath("../HealthComponent")
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_xxcrl")
