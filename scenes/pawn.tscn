@@ -1,9 +1,14 @@
-[gd_scene load_steps=33 format=3 uid="uid://c514qm0j213r3"]
+[gd_scene load_steps=38 format=3 uid="uid://c514qm0j213r3"]
 
-[ext_resource type="Script" path="res://scripts/pawn.gd" id="1_ataya"]
-[ext_resource type="Texture2D" uid="uid://dbie4wfs8j4fy" path="res://assets/Tiny Swords/Factions/Knights/Troops/Pawn/Blue/Pawn_Blue.png" id="1_t206r"]
+[ext_resource type="Script" path="res://scripts/units/pawn.gd" id="1_ataya"]
+[ext_resource type="Texture2D" uid="uid://dqurav4642y82" path="res://assets/Tiny Swords/Factions/Knights/Troops/Pawn/Blue/Pawn_Blue.png" id="1_t206r"]
 [ext_resource type="Script" path="res://scripts/health_bar.gd" id="3_0iqj7"]
 [ext_resource type="Script" path="res://scripts/health_component.gd" id="3_xxcrl"]
+[ext_resource type="Script" path="res://scripts/states/state_machine.gd" id="5_ku4hr"]
+[ext_resource type="Script" path="res://scripts/states/unit_attack_state.gd" id="6_tlbgv"]
+[ext_resource type="Script" path="res://scripts/states/unit_idle_state.gd" id="7_1tych"]
+[ext_resource type="Script" path="res://scripts/states/unit_march_state.gd" id="8_cd35j"]
+[ext_resource type="Script" path="res://scripts/states/unit_pursuit_state.gd" id="9_dh2qp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n6kei"]
 atlas = ExtResource("1_t206r")
@@ -246,3 +251,23 @@ metadata/_edit_use_anchors_ = true
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_xxcrl")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("5_ku4hr")
+initial_state = NodePath("UnitIdleState")
+
+[node name="UnitAttackState" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
+script = ExtResource("6_tlbgv")
+unit = NodePath("../..")
+
+[node name="UnitIdleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
+script = ExtResource("7_1tych")
+unit = NodePath("../..")
+
+[node name="UnitMarchState" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
+script = ExtResource("8_cd35j")
+unit = NodePath("../..")
+
+[node name="UnitPursuitState" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
+script = ExtResource("9_dh2qp")
+unit = NodePath("../..")
