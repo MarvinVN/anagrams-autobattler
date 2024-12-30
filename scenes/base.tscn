@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://dnxukncfg2tne"]
 
 [ext_resource type="Texture2D" uid="uid://cr3c6p7gql1w2" path="res://assets/Tiny Swords/Factions/Knights/Buildings/Castle/Castle_Blue.png" id="1_knwlq"]
-[ext_resource type="Script" path="res://scripts/base.gd" id="1_riqvf"]
-[ext_resource type="Script" path="res://scripts/health_bar.gd" id="2_ecdjr"]
-[ext_resource type="Script" path="res://scripts/health_component.gd" id="3_ugc01"]
-[ext_resource type="Script" path="res://scripts/team_component.gd" id="5_mluvq"]
+[ext_resource type="Script" path="res://scripts/autobattler/base.gd" id="1_riqvf"]
+[ext_resource type="Script" path="res://scripts/autobattler/health_bar.gd" id="2_ecdjr"]
+[ext_resource type="Script" path="res://scripts/components/health_component.gd" id="3_ugc01"]
+[ext_resource type="Script" path="res://scripts/components/team_component.gd" id="5_mluvq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_crsej"]
 size = Vector2(299, 208)

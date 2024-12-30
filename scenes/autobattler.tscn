@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://budnlstoj73dj" path="res://assets/Tiny Swords/Terrain/Ground/Tilemap_Elevation.png" id="1_8mc1v"]
 [ext_resource type="Texture2D" uid="uid://ce556y663787a" path="res://assets/Tiny Swords/Terrain/Ground/Tilemap_Flat.png" id="2_62mrr"]
-[ext_resource type="Script" path="res://scripts/unit_manager.gd" id="3_nc8on"]
+[ext_resource type="Script" path="res://scripts/autobattler/unit_manager.gd" id="3_nc8on"]
 [ext_resource type="PackedScene" uid="uid://dnxukncfg2tne" path="res://scenes/base.tscn" id="4_yrwcp"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_tcu65"]
