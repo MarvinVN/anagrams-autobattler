@@ -8,7 +8,7 @@ const PAWN_ATTACK_RANGE = 10
 const PAWN_MOVE_SPEED = 10
 
 func _init() -> void:
-	super._init(PAWN_DAMAGE, PAWN_SIGHT_RANGE, PAWN_ATTACK_RANGE, PAWN_MOVE_SPEED)
+	super._init(PAWN_DAMAGE, PAWN_SIGHT_RANGE, PAWN_ATTACK_RANGE)
 
 func _ready() -> void:
 	health_component.set_max_health(PAWN_HEALTH)

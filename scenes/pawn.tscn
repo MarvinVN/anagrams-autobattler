@@ -1,12 +1,15 @@
-[gd_scene load_steps=38 format=3 uid="uid://c514qm0j213r3"]
+[gd_scene load_steps=41 format=3 uid="uid://c514qm0j213r3"]
 
 [ext_resource type="Script" path="res://scripts/units/pawn.gd" id="1_ataya"]
 [ext_resource type="Texture2D" uid="uid://dqurav4642y82" path="res://assets/Tiny Swords/Factions/Knights/Troops/Pawn/Blue/Pawn_Blue.png" id="1_t206r"]
 [ext_resource type="Script" path="res://scripts/health_bar.gd" id="3_0iqj7"]
 [ext_resource type="Script" path="res://scripts/health_component.gd" id="3_xxcrl"]
+[ext_resource type="Script" path="res://scripts/team_component.gd" id="5_8ci5o"]
 [ext_resource type="Script" path="res://scripts/states/state_machine.gd" id="5_ku4hr"]
+[ext_resource type="Script" path="res://scripts/pathfind_component.gd" id="5_w07u2"]
 [ext_resource type="Script" path="res://scripts/states/unit_attack_state.gd" id="6_tlbgv"]
 [ext_resource type="Script" path="res://scripts/states/unit_idle_state.gd" id="7_1tych"]
+[ext_resource type="Script" path="res://scripts/velocity_component.gd" id="7_n0wfo"]
 [ext_resource type="Script" path="res://scripts/states/unit_march_state.gd" id="8_cd35j"]
 [ext_resource type="Script" path="res://scripts/states/unit_pursuit_state.gd" id="9_dh2qp"]
 
@@ -224,12 +227,12 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
-[node name="Pawn" type="Area2D"]
+[node name="Pawn" type="CharacterBody2D"]
 script = ExtResource("1_ataya")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4762p")
-animation = &"blue_pawn_attack_1"
+animation = &"blue_pawn_attack_2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -251,23 +254,38 @@ metadata/_edit_use_anchors_ = true
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_xxcrl")
+max_health = 10.0
+
+[node name="PathfindComponent" type="Node2D" parent="." node_paths=PackedStringArray("unit", "velocity_component")]
+script = ExtResource("5_w07u2")
+unit = NodePath("..")
+velocity_component = NodePath("../VelocityComponent")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="PathfindComponent"]
+
+[node name="TeamComponent" type="Node" parent="."]
+script = ExtResource("5_8ci5o")
+
+[node name="VelocityComponent" type="Node" parent="."]
+script = ExtResource("7_n0wfo")
+speed = 1500.0
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("5_ku4hr")
-initial_state = NodePath("UnitIdleState")
+initial_state = NodePath("Idle")
 
-[node name="UnitAttackState" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
+[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
 script = ExtResource("6_tlbgv")
 unit = NodePath("../..")
 
-[node name="UnitIdleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
 script = ExtResource("7_1tych")
 unit = NodePath("../..")
 
-[node name="UnitMarchState" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
+[node name="March" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
 script = ExtResource("8_cd35j")
 unit = NodePath("../..")
 
-[node name="UnitPursuitState" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
+[node name="Pursuit" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
 script = ExtResource("9_dh2qp")
 unit = NodePath("../..")
