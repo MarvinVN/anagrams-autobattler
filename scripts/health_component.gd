@@ -4,7 +4,7 @@ extends Node
 signal health_change
 signal health_below_zero
 
-var max_health: float
+@export var max_health: float
 var current_health: float:
 	set(value):
 		health_change.emit()

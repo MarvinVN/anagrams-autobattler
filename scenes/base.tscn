@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://dnxukncfg2tne"]
+
+[ext_resource type="Texture2D" uid="uid://cr3c6p7gql1w2" path="res://assets/Tiny Swords/Factions/Knights/Buildings/Castle/Castle_Blue.png" id="1_knwlq"]
+[ext_resource type="Script" path="res://scripts/base.gd" id="1_riqvf"]
+[ext_resource type="Script" path="res://scripts/health_bar.gd" id="2_ecdjr"]
+[ext_resource type="Script" path="res://scripts/health_component.gd" id="3_ugc01"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_crsej"]
+size = Vector2(299, 208)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p310h"]
+bg_color = Color(0.277137, 0.204749, 0.172716, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qhpfj"]
+bg_color = Color(0.0157165, 0.710336, 0.47093, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.278431, 0.203922, 0.172549, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[node name="Base" type="Area2D"]
+script = ExtResource("1_riqvf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_knwlq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(1.5, 15)
+shape = SubResource("RectangleShape2D_crsej")
+
+[node name="HealthBar" type="ProgressBar" parent="." node_paths=PackedStringArray("health_component")]
+offset_left = -90.0
+offset_top = -110.0
+offset_right = 90.0
+offset_bottom = -100.0
+theme_override_styles/background = SubResource("StyleBoxFlat_p310h")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qhpfj")
+value = 50.0
+show_percentage = false
+script = ExtResource("2_ecdjr")
+health_component = NodePath("../HealthComponent")
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_ugc01")
+max_health = 500.0
