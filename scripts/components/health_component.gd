@@ -7,6 +7,7 @@ signal health_below_zero
 @export var max_health: float
 var current_health: float:
 	set(value):
+		current_health = value
 		health_change.emit()
 		if current_health <= 0:
 			health_below_zero.emit()

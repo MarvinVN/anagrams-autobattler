@@ -11,7 +11,7 @@ func _ready() -> void:
 func debug_spawn():
 	var unit = PAWN.instantiate()
 	add_child(unit)
-	unit.position = Vector2(192,463)
+	unit.position = Vector2(200,463)
 	unit.team_component.team = 1
 
 func spawn_unit(word_length: int) -> Unit:

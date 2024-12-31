@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://c514qm0j213r3"]
+[gd_scene load_steps=43 format=3 uid="uid://c514qm0j213r3"]
 
 [ext_resource type="Script" path="res://scripts/autobattler/pawn.gd" id="1_ataya"]
 [ext_resource type="Texture2D" uid="uid://dqurav4642y82" path="res://assets/Tiny Swords/Factions/Knights/Troops/Pawn/Blue/Pawn_Blue.png" id="1_t206r"]
@@ -6,12 +6,14 @@
 [ext_resource type="Script" path="res://scripts/components/health_component.gd" id="3_xxcrl"]
 [ext_resource type="Script" path="res://scripts/components/team_component.gd" id="5_8ci5o"]
 [ext_resource type="Script" path="res://scripts/states/state_machine.gd" id="5_ku4hr"]
+[ext_resource type="Script" path="res://scripts/components/hitbox_component.gd" id="5_p4cef"]
 [ext_resource type="Script" path="res://scripts/components/pathfind_component.gd" id="5_w07u2"]
 [ext_resource type="Script" path="res://scripts/states/unit_attack_state.gd" id="6_tlbgv"]
 [ext_resource type="Script" path="res://scripts/states/unit_idle_state.gd" id="7_1tych"]
 [ext_resource type="Script" path="res://scripts/components/velocity_component.gd" id="7_n0wfo"]
 [ext_resource type="Script" path="res://scripts/states/unit_march_state.gd" id="8_cd35j"]
 [ext_resource type="Script" path="res://scripts/states/unit_pursuit_state.gd" id="9_dh2qp"]
+[ext_resource type="PackedScene" uid="uid://bp2u1u6n4td2u" path="res://scenes/vision_component.tscn" id="13_62owg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n6kei"]
 atlas = ExtResource("1_t206r")
@@ -205,8 +207,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nkvl4"]
-radius = 25.0
-height = 72.0
+radius = 35.0
+height = 78.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j0ofn"]
 bg_color = Color(0.277137, 0.204749, 0.172716, 1)
@@ -236,8 +238,10 @@ animation = &"blue_pawn_attack_2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2(0, -4)
+position = Vector2(0, -1.66)
 shape = SubResource("CapsuleShape2D_nkvl4")
+
+[node name="Timer" type="Timer" parent="."]
 
 [node name="HealthBar" type="ProgressBar" parent="." node_paths=PackedStringArray("health_component")]
 offset_left = -30.0
@@ -256,9 +260,15 @@ metadata/_edit_use_anchors_ = true
 script = ExtResource("3_xxcrl")
 max_health = 10.0
 
-[node name="PathfindComponent" type="Node2D" parent="." node_paths=PackedStringArray("unit", "velocity_component")]
+[node name="HitboxComponent" type="Area2D" parent="."]
+script = ExtResource("5_p4cef")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_nkvl4")
+
+[node name="PathfindComponent" type="Node2D" parent="." node_paths=PackedStringArray("velocity_component")]
 script = ExtResource("5_w07u2")
-unit = NodePath("..")
 velocity_component = NodePath("../VelocityComponent")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="PathfindComponent"]
@@ -269,6 +279,8 @@ script = ExtResource("5_8ci5o")
 [node name="VelocityComponent" type="Node" parent="."]
 script = ExtResource("7_n0wfo")
 speed = 1500.0
+
+[node name="VisionComponent" parent="." instance=ExtResource("13_62owg")]
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("5_ku4hr")
@@ -289,3 +301,8 @@ unit = NodePath("../..")
 [node name="Pursuit" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
 script = ExtResource("9_dh2qp")
 unit = NodePath("../..")
+
+[connection signal="area_entered" from="VisionComponent" to="VisionComponent" method="_on_area_entered"]
+[connection signal="area_exited" from="VisionComponent" to="VisionComponent" method="_on_area_exited"]
+
+[editable path="VisionComponent"]

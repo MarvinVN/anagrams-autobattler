@@ -11,4 +11,5 @@ func _init() -> void:
 	super._init(PAWN_DAMAGE, PAWN_SIGHT_RANGE, PAWN_ATTACK_RANGE)
 
 func _ready() -> void:
+	super._ready()
 	health_component.set_max_health(PAWN_HEALTH)

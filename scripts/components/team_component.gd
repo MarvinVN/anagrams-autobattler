@@ -13,6 +13,7 @@ var base_positions = {
 
 @export var team: teams:
 	set(new_team):
+		team = new_team
 		enemy_base_pos = base_positions["TEAM_2"] if new_team == 1 else base_positions["TEAM_1"]
 
 var enemy_base_pos: Vector2

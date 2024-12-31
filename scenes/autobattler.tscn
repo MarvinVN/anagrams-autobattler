@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=4 uid="uid://da4k7ar2nurxr"]
+[gd_scene load_steps=11 format=4 uid="uid://da4k7ar2nurxr"]
 
 [ext_resource type="Texture2D" uid="uid://budnlstoj73dj" path="res://assets/Tiny Swords/Terrain/Ground/Tilemap_Elevation.png" id="1_8mc1v"]
 [ext_resource type="Texture2D" uid="uid://ce556y663787a" path="res://assets/Tiny Swords/Terrain/Ground/Tilemap_Flat.png" id="2_62mrr"]
 [ext_resource type="Script" path="res://scripts/autobattler/unit_manager.gd" id="3_nc8on"]
+[ext_resource type="PackedScene" uid="uid://c514qm0j213r3" path="res://scenes/pawn.tscn" id="4_2wv80"]
 [ext_resource type="PackedScene" uid="uid://dnxukncfg2tne" path="res://scenes/base.tscn" id="4_yrwcp"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_tcu65"]
@@ -109,14 +110,25 @@ tile_set = SubResource("TileSet_6mj68")
 [node name="UnitManager" type="Node" parent="."]
 script = ExtResource("3_nc8on")
 
+[node name="Pawn" parent="UnitManager" instance=ExtResource("4_2wv80")]
+position = Vector2(845, 445)
+
+[node name="TeamComponent" parent="UnitManager/Pawn" index="7"]
+team = 2
+
 [node name="BaseA" parent="." instance=ExtResource("4_yrwcp")]
 position = Vector2(-25, 414)
 
 [node name="BaseB" parent="." instance=ExtResource("4_yrwcp")]
 position = Vector2(1180, 414)
 
+[node name="CollisionShape2D" parent="BaseB" index="1"]
+visible = true
+
 [node name="TeamComponent" parent="BaseB" index="4"]
 team = 2
 
+[editable path="UnitManager/Pawn"]
+[editable path="UnitManager/Pawn/VisionComponent"]
 [editable path="BaseA"]
 [editable path="BaseB"]
