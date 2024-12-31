@@ -111,10 +111,7 @@ tile_set = SubResource("TileSet_6mj68")
 script = ExtResource("3_nc8on")
 
 [node name="Pawn" parent="UnitManager" instance=ExtResource("4_2wv80")]
-position = Vector2(845, 445)
-
-[node name="TeamComponent" parent="UnitManager/Pawn" index="7"]
-team = 2
+position = Vector2(753, 380)
 
 [node name="BaseA" parent="." instance=ExtResource("4_yrwcp")]
 position = Vector2(-25, 414)
@@ -128,7 +125,5 @@ visible = true
 [node name="TeamComponent" parent="BaseB" index="4"]
 team = 2
 
-[editable path="UnitManager/Pawn"]
-[editable path="UnitManager/Pawn/VisionComponent"]
 [editable path="BaseA"]
 [editable path="BaseB"]
