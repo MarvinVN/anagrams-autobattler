@@ -2,7 +2,7 @@ class_name UnitPursuitState
 extends UnitState
 
 func enter() -> void:
-	unit.animated_sprite.play("blue_pawn_walk")
+	unit.animation_player.play("walk")
 
 func update(delta: float) -> void:
 	if unit.current_target == null:

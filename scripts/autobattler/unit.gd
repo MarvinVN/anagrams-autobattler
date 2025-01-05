@@ -1,7 +1,7 @@
 class_name Unit
 extends CharacterBody2D
 
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var timer: Timer = $Timer
 
 @onready var health_component: HealthComponent = $HealthComponent
@@ -10,6 +10,8 @@ extends CharacterBody2D
 @onready var team_component: TeamComponent = $TeamComponent
 @onready var velocity_component: VelocityComponent = $VelocityComponent
 @onready var vision_component: VisionComponent = $VisionComponent
+
+const VISION_TIMEOUT = 1
 
 var damage: float
 var sight_range: float
@@ -26,7 +28,7 @@ func _init(damage: float, sight_range: float, attack_range: float):
 
 func _ready() -> void:
 	timer.timeout.connect(self._on_timer_timeout)
-	timer.start(2)
+	timer.start(VISION_TIMEOUT)
 
 func _on_timer_timeout():
 	current_target = vision_component.get_nearest_enemy_entity()

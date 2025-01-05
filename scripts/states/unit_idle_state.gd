@@ -10,7 +10,7 @@ func _ready() -> void:
 
 func enter() -> void:
 	await unit.ready
-	unit.animated_sprite.play("blue_pawn_idle")
+	unit.animation_player.play("idle")
 	timer.start(1)
 
 func update(delta: float) -> void:
