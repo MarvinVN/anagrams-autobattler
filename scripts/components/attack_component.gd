@@ -11,12 +11,10 @@ enum attack_type {
 
 @export var damage: float
 @export var type: int
-@export var is_attacking := false
 
 var enemies_in_range := []
 
 func attack() -> void:
-	is_attacking = true
 	# attack_type enum
 	match type:
 		0: damage_target(parent_obj.current_target)

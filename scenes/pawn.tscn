@@ -42,18 +42,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [Vector2i(0, 0)]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../AttackComponent:is_attacking")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="Animation" id="Animation_dr8jx"]
 resource_name = "attack1"
@@ -70,17 +58,19 @@ tracks/0/keys = {
 "update": 1,
 "values": [Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2), Vector2i(4, 2), Vector2i(5, 2)]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../AttackComponent:is_attacking")
+tracks/1/path = NodePath("../AttackComponent")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(1.2),
+"times": PackedFloat32Array(0.6),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"values": [{
+"args": [],
+"method": &"attack"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_iehyh"]
@@ -98,17 +88,19 @@ tracks/0/keys = {
 "update": 1,
 "values": [Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3)]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../AttackComponent:is_attacking")
+tracks/1/path = NodePath("../AttackComponent")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(1.2),
+"times": PackedFloat32Array(0.8),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"values": [{
+"args": [],
+"method": &"attack"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_p7p3b"]
@@ -264,6 +256,7 @@ script = ExtResource("9_dh2qp")
 unit = NodePath("../..")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack" method="_on_animation_player_animation_finished"]
+[connection signal="health_change" from="HealthComponent" to="HealthBar" method="_on_health_change"]
 
 [editable path="AttackComponent"]
 [editable path="VisionComponent"]

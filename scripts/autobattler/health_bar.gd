@@ -9,7 +9,7 @@ func _init() -> void:
 
 func update_current_health() -> void:
 	value = health_component.get_health_percentage()
-	if value < 100 and not value:
+	if value < 100:
 		visible = true
 
 func _on_health_change() -> void:
