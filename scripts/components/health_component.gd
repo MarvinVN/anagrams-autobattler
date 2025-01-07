@@ -5,6 +5,7 @@ signal health_change
 signal health_below_zero
 
 @export var max_health: float
+
 var current_health: float:
 	set(value):
 		current_health = value

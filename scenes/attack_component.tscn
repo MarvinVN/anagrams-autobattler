@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqq4rinvc18ec"]
+
+[ext_resource type="Script" path="res://scripts/components/attack_component.gd" id="1_qbahr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gsk8x"]
+radius = 44.1022
+
+[node name="AttackComponent" type="Area2D"]
+script = ExtResource("1_qbahr")
+
+[node name="AttackArea" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gsk8x")
+debug_color = Color(0.897236, 0.110067, 0.275125, 0.419608)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

@@ -2,12 +2,9 @@ class_name VisionComponent
 extends Area2D
 
 @onready var parent_obj := get_parent()
-@onready var vision := $CollisionShape2D
+@onready var vision := $VisionArea
 
 var enemies_in_sight := []
-var max_view_distance: float:
-	set(value):
-		vision.shape.radius = value
 
 func get_nearest_enemy_entity() -> Node2D:
 	var nearest_enemy = null

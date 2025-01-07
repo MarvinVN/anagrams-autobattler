@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var timer: Timer = $Timer
 
+@onready var attack_component: AttackComponent = $AttackComponent
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var hitbox_component: HitboxComponent = $HitboxComponent
 @onready var pathfind_component: PathfindComponent = $PathfindComponent
