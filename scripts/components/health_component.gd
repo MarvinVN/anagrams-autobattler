@@ -6,6 +6,9 @@ signal health_below_zero
 
 @export var max_health: float
 
+func _ready() -> void:
+	current_health = max_health
+
 var current_health: float:
 	set(value):
 		current_health = value

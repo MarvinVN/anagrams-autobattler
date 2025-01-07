@@ -14,18 +14,7 @@ extends CharacterBody2D
 
 const VISION_TIMEOUT = 1
 
-var damage: float
-var sight_range: float
-var attack_range: float
-var move_speed: float
-
 var current_target
-
-func _init(damage: float, sight_range: float, attack_range: float):
-	self.damage = damage
-	self.sight_range = sight_range
-	self.attack_range = attack_range
-	self.move_speed = move_speed
 
 func _ready() -> void:
 	timer.timeout.connect(self._on_timer_timeout)
