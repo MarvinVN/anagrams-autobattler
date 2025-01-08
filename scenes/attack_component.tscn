@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/components/attack_component.gd" id="1_qbahr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gsk8x"]
-radius = 44.1022
+radius = 36.0
 
 [node name="AttackComponent" type="Area2D"]
 script = ExtResource("1_qbahr")

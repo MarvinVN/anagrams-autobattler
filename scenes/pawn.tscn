@@ -147,8 +147,8 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nkvl4"]
-radius = 35.0
-height = 78.0
+radius = 17.0
+height = 52.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j0ofn"]
 bg_color = Color(0.277137, 0.204749, 0.172716, 1)
@@ -215,11 +215,9 @@ damage = 10.0
 position = Vector2(23, 0)
 
 [node name="HitboxComponent" type="Area2D" parent="."]
-visible = false
 script = ExtResource("5_p4cef")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(0, -4)
 shape = SubResource("CapsuleShape2D_nkvl4")
 
 [node name="PathfindComponent" type="Node2D" parent="." node_paths=PackedStringArray("velocity_component")]
