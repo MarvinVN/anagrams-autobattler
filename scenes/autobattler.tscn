@@ -125,5 +125,8 @@ visible = true
 [node name="TeamComponent" parent="BaseB" index="4"]
 team = 2
 
+[editable path="UnitManager/Pawn"]
+[editable path="UnitManager/Pawn/AttackComponent"]
+[editable path="UnitManager/Pawn/VisionComponent"]
 [editable path="BaseA"]
 [editable path="BaseB"]

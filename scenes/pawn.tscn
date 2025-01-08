@@ -209,8 +209,10 @@ script = ExtResource("3_xxcrl")
 max_health = 30.0
 
 [node name="AttackComponent" parent="." instance=ExtResource("5_i27tj")]
-position = Vector2(34, 4)
 damage = 10.0
+
+[node name="AttackArea" parent="AttackComponent" index="0"]
+position = Vector2(23, 0)
 
 [node name="HitboxComponent" type="Area2D" parent="."]
 visible = false
@@ -234,6 +236,7 @@ script = ExtResource("7_n0wfo")
 speed = 1500.0
 
 [node name="VisionComponent" parent="." instance=ExtResource("13_62owg")]
+visible = false
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("5_ku4hr")

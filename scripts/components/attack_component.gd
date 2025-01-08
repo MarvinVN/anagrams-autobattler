@@ -7,7 +7,7 @@ enum attack_type {
 }
 
 @onready var parent_obj := get_parent()
-@onready var attack_area:= $AttackArea
+@onready var attack_area := $AttackArea
 
 @export var damage: float
 @export var type: int
