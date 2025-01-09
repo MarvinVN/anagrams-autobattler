@@ -244,12 +244,14 @@ script = ExtResource("3_xxcrl")
 max_health = 30.0
 
 [node name="AttackComponent" parent="." instance=ExtResource("5_i27tj")]
+visible = false
 damage = 10.0
 
 [node name="AttackArea" parent="AttackComponent" index="0"]
 position = Vector2(23, 0)
 
 [node name="HitboxComponent" type="Area2D" parent="."]
+visible = false
 script = ExtResource("5_p4cef")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
@@ -297,6 +299,7 @@ unit = NodePath("../..")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack" method="_on_animation_player_animation_finished"]
 [connection signal="health_below_zero" from="HealthComponent" to="." method="_on_health_below_zero"]
+[connection signal="health_below_zero" from="HealthComponent" to="HealthBar" method="_on_health_below_zero"]
 [connection signal="health_change" from="HealthComponent" to="HealthBar" method="_on_health_change"]
 
 [editable path="AttackComponent"]

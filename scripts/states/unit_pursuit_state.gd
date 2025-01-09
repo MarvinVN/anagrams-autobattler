@@ -9,7 +9,6 @@ func update(delta: float) -> void:
 		state_transition.emit(self, "Death")
 	if unit.current_target == null:
 		state_transition.emit(self, "Idle")
-		return
 	if unit.attack_component.is_target_in_range(unit.current_target):
 		state_transition.emit(self, "Attack")
 

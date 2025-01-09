@@ -14,6 +14,8 @@ func get_nearest_enemy_entity() -> Node2D:
 		return nearest_enemy
 		
 	for enemy in enemies_in_sight:
+		if enemy.parent_obj.health_component.is_dead():
+			continue
 		var pos = parent_obj.global_position
 		var enemy_pos = enemy.global_position
 		var enemy_distance = pos.distance_to(enemy_pos)

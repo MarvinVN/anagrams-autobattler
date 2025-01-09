@@ -12,5 +12,11 @@ func update_current_health() -> void:
 	if value < 100:
 		visible = true
 
+func remove_health_bar() -> void:
+	visible = false
+
 func _on_health_change() -> void:
 	update_current_health()
+
+func _on_health_below_zero() -> void:
+	remove_health_bar()

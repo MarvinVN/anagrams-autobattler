@@ -11,6 +11,8 @@ func enter() -> void:
 func update(delta: float) -> void:
 	if unit.health_component.is_dead():
 		state_transition.emit(self, "Death")
+	if not unit.current_target:
+		state_transition.emit(self, "March")
 
 func randomize_animation() -> void:
 	current_animation = animations.pick_random()

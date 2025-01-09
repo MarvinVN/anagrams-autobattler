@@ -30,6 +30,8 @@ func _on_timer_timeout():
 	current_target = vision_component.get_nearest_enemy_entity()
 	if current_target:
 		pathfind_component.set_target_position(current_target.global_position)
+	else:
+		pathfind_component.set_target_position(team_component.enemy_base_pos)
 
 func _on_health_below_zero() -> void:
 	switch_sprite()
