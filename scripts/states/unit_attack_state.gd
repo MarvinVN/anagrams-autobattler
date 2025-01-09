@@ -8,6 +8,10 @@ var current_animation: StringName
 func enter() -> void:
 	randomize_animation()
 
+func update(delta: float) -> void:
+	if unit.health_component.is_dead():
+		state_transition.emit(self, "Death")
+
 func randomize_animation() -> void:
 	current_animation = animations.pick_random()
 	unit.animation_player.play(current_animation)

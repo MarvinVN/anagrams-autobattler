@@ -5,6 +5,8 @@ func enter() -> void:
 	unit.animation_player.play("walk")
 
 func update(delta: float) -> void:
+	if unit.health_component.is_dead():
+		state_transition.emit(self, "Death")
 	if unit.current_target:
 		state_transition.emit(self, "Pursuit")
 

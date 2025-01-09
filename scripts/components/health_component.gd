@@ -13,7 +13,7 @@ var current_health: float:
 	set(value):
 		current_health = value
 		health_change.emit()
-		if current_health <= 0:
+		if is_dead():
 			health_below_zero.emit()
 
 func set_max_health(health: float) -> void:
@@ -25,3 +25,6 @@ func take_damage(damage: float) -> void:
 
 func get_health_percentage() -> float:
 	return (current_health / max_health) * 100.0
+
+func is_dead() -> bool:
+	return current_health <= 0

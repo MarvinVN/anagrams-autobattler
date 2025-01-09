@@ -21,7 +21,15 @@ func _ready() -> void:
 	timer.timeout.connect(self._on_timer_timeout)
 	timer.start(VISION_TIMEOUT)
 
+func switch_sprite() -> void:
+	sprite.texture = load("res://assets/Tiny Swords/Factions/Knights/Troops/Dead/Dead.png")
+	sprite.hframes = 7
+	sprite.vframes = 2
+
 func _on_timer_timeout():
 	current_target = vision_component.get_nearest_enemy_entity()
 	if current_target:
 		pathfind_component.set_target_position(current_target.global_position)
+
+func _on_health_below_zero() -> void:
+	switch_sprite()

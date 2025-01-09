@@ -14,6 +14,8 @@ func enter() -> void:
 	timer.start(1)
 
 func update(delta: float) -> void:
+	if unit.health_component.is_dead():
+		state_transition.emit(self, "Death")
 	if unit.current_target:
 		state_transition.emit(self, "Pursuit")
 	if timer.is_stopped():
