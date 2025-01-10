@@ -1,13 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dnxukncfg2tne"]
+[gd_scene load_steps=10 format=3 uid="uid://dnxukncfg2tne"]
 
 [ext_resource type="Texture2D" uid="uid://cr3c6p7gql1w2" path="res://assets/Tiny Swords/Factions/Knights/Buildings/Castle/Castle_Blue.png" id="1_knwlq"]
 [ext_resource type="Script" path="res://scripts/autobattler/base.gd" id="1_riqvf"]
 [ext_resource type="Script" path="res://scripts/autobattler/health_bar.gd" id="2_ecdjr"]
 [ext_resource type="Script" path="res://scripts/components/health_component.gd" id="3_ugc01"]
+[ext_resource type="Script" path="res://scripts/components/hitbox_component.gd" id="5_d785p"]
 [ext_resource type="Script" path="res://scripts/components/team_component.gd" id="5_mluvq"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_crsej"]
-size = Vector2(299, 208)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p310h"]
 bg_color = Color(0.277137, 0.204749, 0.172716, 1)
@@ -28,16 +26,14 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_crsej"]
+size = Vector2(299, 208)
+
 [node name="Base" type="Area2D"]
 script = ExtResource("1_riqvf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_knwlq")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(1.5, 15)
-shape = SubResource("RectangleShape2D_crsej")
 
 [node name="HealthBar" type="ProgressBar" parent="." node_paths=PackedStringArray("health_component")]
 offset_left = -90.0
@@ -56,5 +52,15 @@ metadata/_edit_use_anchors_ = true
 script = ExtResource("3_ugc01")
 max_health = 500.0
 
+[node name="HitboxComponent" type="Area2D" parent="."]
+position = Vector2(1.5, 15)
+script = ExtResource("5_d785p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_crsej")
+
 [node name="TeamComponent" type="Node" parent="."]
 script = ExtResource("5_mluvq")
+
+[connection signal="health_below_zero" from="HealthComponent" to="HealthBar" method="_on_health_below_zero"]
+[connection signal="health_change" from="HealthComponent" to="HealthBar" method="_on_health_change"]

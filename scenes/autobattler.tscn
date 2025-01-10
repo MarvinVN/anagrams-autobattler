@@ -116,14 +116,11 @@ position = Vector2(753, 380)
 [node name="BaseA" parent="." instance=ExtResource("4_yrwcp")]
 position = Vector2(-25, 414)
 
-[node name="CollisionShape2D" parent="BaseA" index="1"]
-visible = true
+[node name="TeamComponent" parent="BaseA" index="4"]
+team = 1
 
 [node name="BaseB" parent="." instance=ExtResource("4_yrwcp")]
 position = Vector2(1180, 414)
-
-[node name="CollisionShape2D" parent="BaseB" index="1"]
-visible = true
 
 [node name="TeamComponent" parent="BaseB" index="4"]
 team = 2
