@@ -18,8 +18,16 @@ const VISION_TIMEOUT = 1
 var current_target
 
 func _ready() -> void:
+	find_target()
 	timer.timeout.connect(self._on_timer_timeout)
 	timer.start(VISION_TIMEOUT)
+
+func find_target() -> void:
+	current_target = vision_component.get_nearest_enemy_entity()
+	if current_target:
+		pathfind_component.set_target_position(current_target.global_position)
+	else:
+		pathfind_component.set_target_position(team_component.enemy_base_pos)
 
 func flip_direction() -> void:
 	sprite.flip_h = true
@@ -31,11 +39,7 @@ func switch_sprite() -> void:
 	sprite.vframes = 2
 
 func _on_timer_timeout():
-	current_target = vision_component.get_nearest_enemy_entity()
-	if current_target:
-		pathfind_component.set_target_position(current_target.global_position)
-	else:
-		pathfind_component.set_target_position(team_component.enemy_base_pos)
+	find_target()
 
 func _on_health_below_zero() -> void:
 	switch_sprite()

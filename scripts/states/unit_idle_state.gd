@@ -9,6 +9,8 @@ func _ready() -> void:
 	timer.timeout.connect(self.start_march)
 
 func enter() -> void:
+	if unit.current_target:
+		state_transition.emit(self, "Pursuit")
 	await unit.ready
 	unit.animation_player.play("idle")
 	timer.start(1)
