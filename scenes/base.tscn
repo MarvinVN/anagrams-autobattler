@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dnxukncfg2tne"]
+[gd_scene load_steps=11 format=3 uid="uid://dnxukncfg2tne"]
 
 [ext_resource type="Texture2D" uid="uid://cr3c6p7gql1w2" path="res://assets/Tiny Swords/Factions/Knights/Buildings/Castle/Castle_Blue.png" id="1_knwlq"]
 [ext_resource type="Script" path="res://scripts/autobattler/base.gd" id="1_riqvf"]
@@ -29,6 +29,9 @@ corner_radius_bottom_left = 1
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_crsej"]
 size = Vector2(299, 208)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p4h3k"]
+size = Vector2(62.75, 207)
+
 [node name="Base" type="Area2D"]
 script = ExtResource("1_riqvf")
 
@@ -53,6 +56,7 @@ script = ExtResource("3_ugc01")
 max_health = 500.0
 
 [node name="HitboxComponent" type="Area2D" parent="."]
+visible = false
 position = Vector2(1.5, 15)
 script = ExtResource("5_d785p")
 
@@ -61,6 +65,12 @@ shape = SubResource("RectangleShape2D_crsej")
 
 [node name="TeamComponent" type="Node" parent="."]
 script = ExtResource("5_mluvq")
+
+[node name="UnitSpawnArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UnitSpawnArea"]
+position = Vector2(200, 40)
+shape = SubResource("RectangleShape2D_p4h3k")
 
 [connection signal="health_below_zero" from="HealthComponent" to="HealthBar" method="_on_health_below_zero"]
 [connection signal="health_change" from="HealthComponent" to="HealthBar" method="_on_health_change"]

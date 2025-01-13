@@ -1,26 +1,24 @@
 class_name UnitManager
 extends Node
 
-const PAWN = preload("res://scenes/pawn.tscn"
-)
+@export var baseA: Base
+@export var baseB: Base
+
+const PAWN = preload("res://scenes/pawn.tscn")
 var unit_list: Array = []
 
-func _ready() -> void:
-	debug_spawn()
-
-func debug_spawn():
-	var unit = PAWN.instantiate()
-	add_child(unit)
-	unit.position = Vector2(200,463)
-	unit.team_component.team = 1
-
-func spawn_unit(word_length: int) -> Unit:
+func spawn_unit(word_length: int, team: int) -> Unit:
 	var new_unit: Unit
 	match word_length:
-		3: pass
+		3: new_unit = PAWN.instantiate()
 		4: pass
 		5: pass
 		6: pass
+	add_child(new_unit)
+	new_unit.team_component.team = team
+	if team == 2:
+		new_unit.flip_direction()
+	new_unit.position = baseA.get_random_spawn_point() if team == 1 else baseB.get_random_spawn_point()
 	unit_list.append(new_unit)
 	return new_unit
 

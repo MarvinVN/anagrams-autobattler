@@ -21,6 +21,8 @@ func attack() -> void:
 		1: damage_area()
 
 func damage_target(target) -> void:
+	if not target:
+		return
 	target.parent_obj.health_component.take_damage(damage)
 
 func damage_area() -> void:

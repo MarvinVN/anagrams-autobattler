@@ -21,6 +21,10 @@ func _ready() -> void:
 	timer.timeout.connect(self._on_timer_timeout)
 	timer.start(VISION_TIMEOUT)
 
+func flip_direction() -> void:
+	sprite.flip_h = true
+	attack_component.attack_area.position.x *= -1
+
 func switch_sprite() -> void:
 	sprite.texture = load("res://assets/Tiny Swords/Factions/Knights/Troops/Dead/Dead.png")
 	sprite.hframes = 7

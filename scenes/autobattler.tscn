@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://budnlstoj73dj" path="res://assets/Tiny Swords/Terrain/Ground/Tilemap_Elevation.png" id="1_8mc1v"]
 [ext_resource type="Texture2D" uid="uid://ce556y663787a" path="res://assets/Tiny Swords/Terrain/Ground/Tilemap_Flat.png" id="2_62mrr"]
 [ext_resource type="Script" path="res://scripts/autobattler/unit_manager.gd" id="3_nc8on"]
-[ext_resource type="PackedScene" uid="uid://c514qm0j213r3" path="res://scenes/pawn.tscn" id="4_2wv80"]
 [ext_resource type="PackedScene" uid="uid://dnxukncfg2tne" path="res://scenes/base.tscn" id="4_yrwcp"]
+[ext_resource type="Script" path="res://scripts/unit_spawn_menu.gd" id="6_camvw"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_tcu65"]
 vertices = PackedVector2Array(1542, 576.039, -407.742, 584.953, -402.242, 361.992, 1542, 361)
@@ -107,26 +107,91 @@ position = Vector2(27, -40)
 tile_map_data = PackedByteArray("AAAEAAgAAQABAAEAAAAFAAgAAQABAAEAAAAGAAgAAQABAAEAAAAHAAgAAQABAAEAAAAIAAgAAQABAAEAAAAJAAgAAQABAAEAAAAKAAgAAQABAAEAAAALAAgAAQABAAEAAAAMAAgAAQABAAEAAAANAAgAAQABAAEAAAAOAAgAAQABAAEAAAAPAAgAAQABAAEAAAAQAAgAAQABAAEAAAAQAAcAAQABAAEAAAAPAAcAAQABAAEAAAAOAAcAAQABAAEAAAANAAcAAQABAAEAAAAMAAcAAQABAAEAAAALAAcAAQABAAEAAAAKAAcAAQABAAEAAAAJAAcAAQABAAEAAAAIAAcAAQABAAEAAAAHAAcAAQABAAEAAAAGAAcAAQABAAEAAAAFAAcAAQABAAEAAAAEAAcAAQABAAEAAAADAAcAAQABAAEAAAADAAgAAQABAAEAAAADAAkAAQABAAIAAAAEAAkAAQABAAIAAAAFAAkAAQABAAIAAAAGAAkAAQABAAIAAAAHAAkAAQABAAIAAAAIAAkAAQABAAIAAAAJAAkAAQABAAIAAAAKAAkAAQABAAIAAAALAAkAAQABAAIAAAAMAAkAAQABAAIAAAACAAcAAQABAAEAAAABAAcAAQABAAEAAAAAAAcAAQABAAEAAAAAAAgAAQABAAEAAAABAAgAAQABAAEAAAACAAgAAQABAAEAAAACAAkAAQABAAIAAAABAAkAAQABAAIAAAAAAAkAAQABAAIAAAARAAcAAQABAAEAAAARAAgAAQABAAEAAAARAAkAAQABAAIAAAAQAAkAAQABAAIAAAAPAAkAAQABAAIAAAAOAAkAAQABAAIAAAANAAkAAQABAAIAAAD//wcAAQABAAEAAAD//wgAAQABAAEAAAD//wkAAQABAAIAAAD//wYAAQABAAAAAAARAAYAAQABAAAAAAAAAAYAAQABAAAAAAABAAYAAQABAAAAAAACAAYAAQABAAAAAAADAAYAAQABAAAAAAAEAAYAAQABAAAAAAAFAAYAAQABAAAAAAAGAAYAAQABAAAAAAAHAAYAAQABAAAAAAAIAAYAAQABAAAAAAAJAAYAAQABAAAAAAAKAAYAAQABAAAAAAALAAYAAQABAAAAAAAMAAYAAQABAAAAAAANAAYAAQABAAAAAAAOAAYAAQABAAAAAAAPAAYAAQABAAAAAAAQAAYAAQABAAAAAAD6/wYAAQABAAAAAAD7/wYAAQABAAAAAAD8/wYAAQABAAAAAAD9/wYAAQABAAAAAAD+/wYAAQABAAAAAAAWAAYAAQABAAAAAAAVAAYAAQABAAAAAAAUAAYAAQABAAAAAAATAAYAAQABAAAAAAASAAYAAQABAAAAAAD5/wYAAQAAAAAAAAAXAAYAAQACAAAAAAD5/wcAAQAAAAEAAAD5/wgAAQAAAAEAAAD5/wkAAQAAAAIAAAAXAAcAAQACAAEAAAAXAAgAAQACAAEAAAAXAAkAAQACAAIAAAD6/wkAAQABAAIAAAD7/wkAAQABAAIAAAD8/wkAAQABAAIAAAD9/wkAAQABAAIAAAD+/wkAAQABAAIAAAASAAkAAQABAAIAAAATAAkAAQABAAIAAAAUAAkAAQABAAIAAAAVAAkAAQABAAIAAAAWAAkAAQABAAIAAAD6/wcAAQABAAEAAAD6/wgAAQABAAEAAAD7/wgAAQABAAEAAAD8/wgAAQABAAEAAAD9/wgAAQABAAEAAAD+/wgAAQABAAEAAAD+/wcAAQABAAEAAAD9/wcAAQABAAEAAAD8/wcAAQABAAEAAAD7/wcAAQABAAEAAAASAAcAAQABAAEAAAATAAcAAQABAAEAAAAUAAcAAQABAAEAAAAVAAcAAQABAAEAAAAWAAcAAQABAAEAAAAWAAgAAQABAAEAAAAVAAgAAQABAAEAAAAUAAgAAQABAAEAAAATAAgAAQABAAEAAAASAAgAAQABAAEAAAA=")
 tile_set = SubResource("TileSet_6mj68")
 
-[node name="UnitManager" type="Node" parent="."]
+[node name="UnitManager" type="Node" parent="." node_paths=PackedStringArray("baseA", "baseB")]
 script = ExtResource("3_nc8on")
+baseA = NodePath("../BaseA")
+baseB = NodePath("../BaseB")
 
-[node name="Pawn" parent="UnitManager" instance=ExtResource("4_2wv80")]
-position = Vector2(753, 380)
-
-[node name="BaseA" parent="." instance=ExtResource("4_yrwcp")]
+[node name="BaseA" parent="." node_paths=PackedStringArray("unit_spawn_area") instance=ExtResource("4_yrwcp")]
 position = Vector2(-25, 414)
+unit_spawn_area = NodePath("UnitSpawnArea/CollisionShape2D")
 
 [node name="TeamComponent" parent="BaseA" index="4"]
 team = 1
 
-[node name="BaseB" parent="." instance=ExtResource("4_yrwcp")]
+[node name="BaseB" parent="." node_paths=PackedStringArray("unit_spawn_area") instance=ExtResource("4_yrwcp")]
 position = Vector2(1180, 414)
+unit_spawn_area = NodePath("UnitSpawnArea/CollisionShape2D")
 
 [node name="TeamComponent" parent="BaseB" index="4"]
 team = 2
 
-[editable path="UnitManager/Pawn"]
-[editable path="UnitManager/Pawn/AttackComponent"]
-[editable path="UnitManager/Pawn/VisionComponent"]
+[node name="UnitSpawnMenu" type="Panel" parent="."]
+offset_left = 476.0
+offset_top = -156.0
+offset_right = 676.0
+offset_bottom = 2.0
+script = ExtResource("6_camvw")
+
+[node name="TeamA" type="VBoxContainer" parent="UnitSpawnMenu"]
+layout_mode = 0
+offset_right = 95.0
+offset_bottom = 155.0
+
+[node name="A3" type="Button" parent="UnitSpawnMenu/TeamA"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+text = "unitA3"
+
+[node name="A4" type="Button" parent="UnitSpawnMenu/TeamA"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+text = "unitA4"
+
+[node name="A5" type="Button" parent="UnitSpawnMenu/TeamA"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+text = "unitA5"
+
+[node name="A6" type="Button" parent="UnitSpawnMenu/TeamA"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+text = "unitA6"
+
+[node name="TeamB" type="VBoxContainer" parent="UnitSpawnMenu"]
+layout_direction = 3
+layout_mode = 0
+offset_right = 97.0
+offset_bottom = 153.0
+
+[node name="B3" type="Button" parent="UnitSpawnMenu/TeamB"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+text = "unitB3"
+
+[node name="B4" type="Button" parent="UnitSpawnMenu/TeamB"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+text = "unitB4"
+
+[node name="B5" type="Button" parent="UnitSpawnMenu/TeamB"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+text = "unitB5"
+
+[node name="B6" type="Button" parent="UnitSpawnMenu/TeamB"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+text = "unitB6"
+
+[connection signal="pressed" from="UnitSpawnMenu/TeamA/A3" to="UnitSpawnMenu" method="_on_a_3_pressed"]
+[connection signal="pressed" from="UnitSpawnMenu/TeamA/A4" to="UnitSpawnMenu" method="_on_a_4_pressed"]
+[connection signal="pressed" from="UnitSpawnMenu/TeamA/A5" to="UnitSpawnMenu" method="_on_a_5_pressed"]
+[connection signal="pressed" from="UnitSpawnMenu/TeamA/A6" to="UnitSpawnMenu" method="_on_a_6_pressed"]
+[connection signal="pressed" from="UnitSpawnMenu/TeamB/B3" to="UnitSpawnMenu" method="_on_b_3_pressed"]
+[connection signal="pressed" from="UnitSpawnMenu/TeamB/B4" to="UnitSpawnMenu" method="_on_b_4_pressed"]
+[connection signal="pressed" from="UnitSpawnMenu/TeamB/B5" to="UnitSpawnMenu" method="_on_b_5_pressed"]
+[connection signal="pressed" from="UnitSpawnMenu/TeamB/B6" to="UnitSpawnMenu" method="_on_b_6_pressed"]
+
 [editable path="BaseA"]
 [editable path="BaseB"]
