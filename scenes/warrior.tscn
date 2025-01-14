@@ -1,23 +1,23 @@
-[gd_scene load_steps=29 format=3 uid="uid://c514qm0j213r3"]
+[gd_scene load_steps=29 format=3 uid="uid://di7aukwd2npts"]
 
-[ext_resource type="Script" path="res://scripts/autobattler/unit.gd" id="1_10x2r"]
-[ext_resource type="Texture2D" uid="uid://dqurav4642y82" path="res://assets/Tiny Swords/Factions/Knights/Troops/Pawn/Blue/Pawn_Blue.png" id="1_t206r"]
-[ext_resource type="Script" path="res://scripts/autobattler/health_bar.gd" id="3_0iqj7"]
-[ext_resource type="Script" path="res://scripts/components/health_component.gd" id="3_xxcrl"]
-[ext_resource type="Script" path="res://scripts/components/team_component.gd" id="5_8ci5o"]
-[ext_resource type="PackedScene" uid="uid://cqq4rinvc18ec" path="res://scenes/attack_component.tscn" id="5_i27tj"]
-[ext_resource type="Script" path="res://scripts/states/state_machine.gd" id="5_ku4hr"]
-[ext_resource type="Script" path="res://scripts/components/hitbox_component.gd" id="5_p4cef"]
-[ext_resource type="Script" path="res://scripts/components/pathfind_component.gd" id="5_w07u2"]
-[ext_resource type="Script" path="res://scripts/states/unit_attack_state.gd" id="6_tlbgv"]
-[ext_resource type="Script" path="res://scripts/states/unit_idle_state.gd" id="7_1tych"]
-[ext_resource type="Script" path="res://scripts/components/velocity_component.gd" id="7_n0wfo"]
-[ext_resource type="Script" path="res://scripts/states/unit_march_state.gd" id="8_cd35j"]
-[ext_resource type="Script" path="res://scripts/states/unit_pursuit_state.gd" id="9_dh2qp"]
-[ext_resource type="PackedScene" uid="uid://bp2u1u6n4td2u" path="res://scenes/vision_component.tscn" id="13_62owg"]
-[ext_resource type="Script" path="res://scripts/states/unit_death_state.gd" id="13_j315h"]
+[ext_resource type="Script" path="res://scripts/autobattler/unit.gd" id="1_8dgt8"]
+[ext_resource type="Texture2D" uid="uid://cbk2y267ceruo" path="res://assets/Tiny Swords/Factions/Knights/Troops/Warrior/Blue/Warrior_Blue.png" id="2_spa6o"]
+[ext_resource type="Script" path="res://scripts/autobattler/health_bar.gd" id="3_o5exj"]
+[ext_resource type="Script" path="res://scripts/components/health_component.gd" id="4_jk2d2"]
+[ext_resource type="PackedScene" uid="uid://cqq4rinvc18ec" path="res://scenes/attack_component.tscn" id="5_pi0v5"]
+[ext_resource type="Script" path="res://scripts/components/hitbox_component.gd" id="6_uy4kh"]
+[ext_resource type="Script" path="res://scripts/components/pathfind_component.gd" id="7_q1lod"]
+[ext_resource type="Script" path="res://scripts/components/team_component.gd" id="8_4t2y7"]
+[ext_resource type="Script" path="res://scripts/components/velocity_component.gd" id="9_3pcpn"]
+[ext_resource type="PackedScene" uid="uid://bp2u1u6n4td2u" path="res://scenes/vision_component.tscn" id="10_mlheh"]
+[ext_resource type="Script" path="res://scripts/states/state_machine.gd" id="11_spwk3"]
+[ext_resource type="Script" path="res://scripts/states/unit_attack_state.gd" id="12_8vpxg"]
+[ext_resource type="Script" path="res://scripts/states/unit_death_state.gd" id="13_vwg8b"]
+[ext_resource type="Script" path="res://scripts/states/unit_idle_state.gd" id="14_si0iq"]
+[ext_resource type="Script" path="res://scripts/states/unit_march_state.gd" id="15_yhwyp"]
+[ext_resource type="Script" path="res://scripts/states/unit_pursuit_state.gd" id="16_vaslo"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_7c7nn"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_mha4w"]
 
 [sub_resource type="Animation" id="Animation_u2pj5"]
 length = 0.001
@@ -183,14 +183,14 @@ _data = {
 "walk": SubResource("Animation_j6qg6")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j0ofn"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bnc2x"]
 bg_color = Color(0.277137, 0.204749, 0.172716, 1)
 corner_radius_top_left = 1
 corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qq4v5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oq04r"]
 bg_color = Color(0.0157165, 0.710336, 0.47093, 1)
 border_width_left = 1
 border_width_top = 1
@@ -202,23 +202,23 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nkvl4"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3wqly"]
 radius = 17.0
 height = 52.0
 
-[node name="Pawn" type="CharacterBody2D"]
+[node name="Warrior" type="CharacterBody2D"]
 y_sort_enabled = true
-script = ExtResource("1_10x2r")
+script = ExtResource("1_8dgt8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("1_t206r")
+texture = ExtResource("2_spa6o")
 offset = Vector2(0, -30)
 hframes = 6
-vframes = 6
+vframes = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_7c7nn")
+shape = SubResource("CircleShape2D_mha4w")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Sprite2D")
@@ -230,25 +230,25 @@ libraries = {
 
 [node name="HealthBar" type="ProgressBar" parent="." node_paths=PackedStringArray("health_component")]
 offset_left = -30.0
-offset_top = -80.0
+offset_top = -95.0
 offset_right = 30.0
-offset_bottom = -70.0
-theme_override_styles/background = SubResource("StyleBoxFlat_j0ofn")
-theme_override_styles/fill = SubResource("StyleBoxFlat_qq4v5")
+offset_bottom = -85.0
+theme_override_styles/background = SubResource("StyleBoxFlat_bnc2x")
+theme_override_styles/fill = SubResource("StyleBoxFlat_oq04r")
 value = 50.0
 show_percentage = false
-script = ExtResource("3_0iqj7")
+script = ExtResource("3_o5exj")
 health_component = NodePath("../HealthComponent")
 metadata/_edit_use_anchors_ = true
 
 [node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("3_xxcrl")
-max_health = 30.0
+script = ExtResource("4_jk2d2")
+max_health = 50.0
 
-[node name="AttackComponent" parent="." instance=ExtResource("5_i27tj")]
+[node name="AttackComponent" parent="." instance=ExtResource("5_pi0v5")]
 visible = false
 position = Vector2(0, -30)
-damage = 10.0
+damage = 20.0
 
 [node name="AttackArea" parent="AttackComponent" index="0"]
 position = Vector2(23, 0)
@@ -256,50 +256,50 @@ position = Vector2(23, 0)
 [node name="HitboxComponent" type="Area2D" parent="."]
 visible = false
 position = Vector2(0, -30)
-script = ExtResource("5_p4cef")
+script = ExtResource("6_uy4kh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
-shape = SubResource("CapsuleShape2D_nkvl4")
+shape = SubResource("CapsuleShape2D_3wqly")
 
 [node name="PathfindComponent" type="Node2D" parent="." node_paths=PackedStringArray("velocity_component")]
-script = ExtResource("5_w07u2")
+script = ExtResource("7_q1lod")
 velocity_component = NodePath("../VelocityComponent")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="PathfindComponent"]
 
 [node name="TeamComponent" type="Node" parent="."]
-script = ExtResource("5_8ci5o")
+script = ExtResource("8_4t2y7")
 
 [node name="VelocityComponent" type="Node" parent="."]
-script = ExtResource("7_n0wfo")
+script = ExtResource("9_3pcpn")
 speed = 1500.0
 
-[node name="VisionComponent" parent="." instance=ExtResource("13_62owg")]
+[node name="VisionComponent" parent="." instance=ExtResource("10_mlheh")]
 visible = false
 position = Vector2(0, -30)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("5_ku4hr")
+script = ExtResource("11_spwk3")
 initial_state = NodePath("Idle")
 
 [node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
-script = ExtResource("6_tlbgv")
+script = ExtResource("12_8vpxg")
 unit = NodePath("../..")
 
 [node name="Death" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
-script = ExtResource("13_j315h")
+script = ExtResource("13_vwg8b")
 unit = NodePath("../..")
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
-script = ExtResource("7_1tych")
+script = ExtResource("14_si0iq")
 unit = NodePath("../..")
 
 [node name="March" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
-script = ExtResource("8_cd35j")
+script = ExtResource("15_yhwyp")
 unit = NodePath("../..")
 
 [node name="Pursuit" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
-script = ExtResource("9_dh2qp")
+script = ExtResource("16_vaslo")
 unit = NodePath("../..")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack" method="_on_animation_player_animation_finished"]

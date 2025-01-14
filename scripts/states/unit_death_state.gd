@@ -10,6 +10,7 @@ func _ready() -> void:
 
 func enter() -> void:
 	unit.animation_player.play("death")
+	unit.collision.disabled = true
 	timer.start(5)
 
 func free_unit() -> void:

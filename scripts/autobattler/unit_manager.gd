@@ -1,5 +1,5 @@
 class_name UnitManager
-extends Node
+extends Node2D
 
 @export var baseA: Base
 @export var baseB: Base
