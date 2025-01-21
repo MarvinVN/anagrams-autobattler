@@ -4,6 +4,7 @@ extends Node
 signal submit_word_input
 signal use_modifier
 signal modifier_change
+signal valid_word(word_length)
 
 @export var word_manager: WordManager
 @export var letters_manager: LettersManager
@@ -52,11 +53,13 @@ func word_submission_response(valid_submission: bool) -> void:
 			print("all words found! resetting board")
 			word_manager.reset_board()
 		board.set_found_word_percentage(get_percentage_found())
-		match len(input_to_word()):
+		var word_length = len(input_to_word())
+		match word_length:
 			3: audio_manager.play_valid_word_3()
 			4: audio_manager.play_valid_word_4()
 			5: audio_manager.play_valid_word_5()
 			6: audio_manager.play_valid_word_6()
+		valid_word.emit(word_length)
 		print("word found!")
 	else:
 		print("invalid word")

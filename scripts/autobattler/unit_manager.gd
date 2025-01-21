@@ -13,8 +13,8 @@ func spawn_unit(word_length: int, team: int) -> Unit:
 	match word_length:
 		3: new_unit = PAWN.instantiate()
 		4: new_unit = WARRIOR.instantiate()
-		5: pass
-		6: pass
+		5: new_unit = WARRIOR.instantiate()
+		6: new_unit = WARRIOR.instantiate()
 	add_child(new_unit)
 	new_unit.team_component.team = team
 	new_unit.health_component.health_below_zero.connect(_on_unit_death.bind(new_unit))

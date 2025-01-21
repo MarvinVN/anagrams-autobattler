@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyfygnf6dxqow"]
+
+[ext_resource type="PackedScene" uid="uid://buqlkb5fix0v7" path="res://scenes/anagrams.tscn" id="1_66c0x"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_whjmp"]
+[ext_resource type="PackedScene" uid="uid://da4k7ar2nurxr" path="res://scenes/autobattler.tscn" id="2_1jfny"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_whjmp")
+
+[node name="AnagramsRoot" parent="." instance=ExtResource("1_66c0x")]
+
+[node name="AutobattlerRoot" parent="." instance=ExtResource("2_1jfny")]
+
+[connection signal="valid_word_submission" from="AnagramsRoot" to="." method="_on_valid_word_submission"]
+
+[editable path="AnagramsRoot"]
+[editable path="AutobattlerRoot"]
+[editable path="AutobattlerRoot/BaseA"]
+[editable path="AutobattlerRoot/BaseB"]

@@ -1,5 +1,6 @@
-[gd_scene load_steps=22 format=3 uid="uid://buqlkb5fix0v7"]
+[gd_scene load_steps=23 format=3 uid="uid://buqlkb5fix0v7"]
 
+[ext_resource type="Script" path="res://scripts/anagrams.gd" id="1_bcbx0"]
 [ext_resource type="Script" path="res://scripts/anagrams/word_bank.gd" id="1_lnjm5"]
 [ext_resource type="Script" path="res://scripts/anagrams/word_manager.gd" id="2_u7o1d"]
 [ext_resource type="Script" path="res://scripts/anagrams/letters_manager.gd" id="3_0d0x2"]
@@ -27,6 +28,7 @@ streams_count = 1
 stream_0/stream = ExtResource("7_uti5j")
 
 [node name="AnagramsRoot" type="Node2D"]
+script = ExtResource("1_bcbx0")
 
 [node name="WordBank" type="Node" parent="."]
 script = ExtResource("1_lnjm5")
@@ -374,3 +376,4 @@ show_percentage = false
 [connection signal="new_letter_set" from="WordManager" to="InputManager" method="_on_new_letter_set"]
 [connection signal="timeout" from="WordManager/Timer" to="WordManager" method="_on_timer_timeout"]
 [connection signal="timeout" from="ModifierManager/Timer" to="ModifierManager" method="_on_timer_timeout"]
+[connection signal="valid_word" from="InputManager" to="." method="_on_valid_word"]
