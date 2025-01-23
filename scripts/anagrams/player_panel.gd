@@ -30,3 +30,6 @@ func init_icons() -> void:
 		Enums.Modifiers.WILD_CARD: preload("res://assets/modifiers/wild-card-icon.png"),
 		"empty": preload("res://assets/modifiers/empty-mod-icon.png")
 	}
+
+func _on_modifier_change(modifier: int) -> void:
+	update_modifier_icon(modifier)

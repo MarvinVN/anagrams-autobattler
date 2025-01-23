@@ -1,6 +1,8 @@
 class_name ModifierManager
 extends Node
 
+signal modifier_change
+
 @onready var timer: Timer = $Timer
 @onready var modifier_panel: ModifierPanel = $"../ModifierPanel"
 
@@ -73,7 +75,9 @@ func use_wild_card_mod() -> void:
 	wild_tile.set_sprite("wild")
 
 func give_random_mod(player: InputManager) -> void:
-	player.current_modifier = Enums.Modifiers.values().pick_random()
+	var new_modifier = Enums.Modifiers.values().pick_random()
+	player.current_modifier = new_modifier
+	modifier_change.emit(new_modifier)
 
 func give_add_letter_mod(player: InputManager) -> void:
 	player.current_modifier = Enums.Modifiers.ADD_LETTER

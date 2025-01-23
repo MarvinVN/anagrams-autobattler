@@ -12,6 +12,7 @@ script = ExtResource("1_whjmp")
 [node name="AutobattlerRoot" parent="." instance=ExtResource("2_1jfny")]
 
 [connection signal="valid_word_submission" from="AnagramsRoot" to="." method="_on_valid_word_submission"]
+[connection signal="give_modifier" from="AutobattlerRoot" to="." method="_on_give_modifier"]
 
 [editable path="AnagramsRoot"]
 [editable path="AutobattlerRoot"]

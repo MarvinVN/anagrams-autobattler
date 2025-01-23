@@ -375,5 +375,6 @@ show_percentage = false
 [connection signal="new_letter_set" from="WordManager" to="LettersManager" method="_on_letters_change"]
 [connection signal="new_letter_set" from="WordManager" to="InputManager" method="_on_new_letter_set"]
 [connection signal="timeout" from="WordManager/Timer" to="WordManager" method="_on_timer_timeout"]
+[connection signal="modifier_change" from="ModifierManager" to="PlayerPanel" method="_on_modifier_change"]
 [connection signal="timeout" from="ModifierManager/Timer" to="ModifierManager" method="_on_timer_timeout"]
 [connection signal="valid_word" from="InputManager" to="." method="_on_valid_word"]

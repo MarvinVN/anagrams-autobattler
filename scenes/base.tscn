@@ -73,4 +73,5 @@ position = Vector2(200, 40)
 shape = SubResource("RectangleShape2D_p4h3k")
 
 [connection signal="health_below_zero" from="HealthComponent" to="HealthBar" method="_on_health_below_zero"]
+[connection signal="health_change" from="HealthComponent" to="." method="_on_health_change"]
 [connection signal="health_change" from="HealthComponent" to="HealthBar" method="_on_health_change"]
