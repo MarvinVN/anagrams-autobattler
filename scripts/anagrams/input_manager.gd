@@ -22,7 +22,6 @@ var found_words: Dictionary = {}
 func _ready() -> void:
 	submit_word_input.connect(word_manager.word_submission)
 	use_modifier.connect(modifier_manager.use_modifier)
-	modifier_change.connect(player_panel.update_modifier_icon)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
@@ -139,17 +138,13 @@ func handle_input(event: InputEventKey) -> void:
 			else:
 				print("no modifier held!")
 		KEY_2: 
-			modifier_manager.give_add_letter_mod(self)
-			modifier_change.emit(current_modifier)
+			modifier_manager.give_modifier(self, Enums.Modifiers.ADD_LETTER)
 		KEY_3: 
-			modifier_manager.give_freeze_mod(self)
-			modifier_change.emit(current_modifier)
+			modifier_manager.give_modifier(self, Enums.Modifiers.FREEZE)
 		KEY_4: 
-			modifier_manager.give_lock_mod(self)
-			modifier_change.emit(current_modifier)
+			modifier_manager.give_modifier(self, Enums.Modifiers.LOCK)
 		KEY_5: 
-			modifier_manager.give_wild_card_mod(self)
-			modifier_change.emit(current_modifier)
+			modifier_manager.give_modifier(self, Enums.Modifiers.WILD_CARD)
 		KEY_A: letter_input("a")
 		KEY_B: letter_input("b")
 		KEY_C: letter_input("c")

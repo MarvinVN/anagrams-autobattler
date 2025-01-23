@@ -79,17 +79,15 @@ func give_random_mod(player: InputManager) -> void:
 	player.current_modifier = new_modifier
 	modifier_change.emit(new_modifier)
 
-func give_add_letter_mod(player: InputManager) -> void:
-	player.current_modifier = Enums.Modifiers.ADD_LETTER
-
-func give_freeze_mod(player: InputManager) -> void:
-	player.current_modifier = Enums.Modifiers.FREEZE
-
-func give_lock_mod(player: InputManager) -> void:
-	player.current_modifier = Enums.Modifiers.LOCK
-
-func give_wild_card_mod(player: InputManager) -> void:
-	player.current_modifier = Enums.Modifiers.WILD_CARD
+func give_modifier(player: InputManager, modifier: int) -> void:
+	var new_modifier
+	match modifier:
+		Enums.Modifiers.ADD_LETTER: new_modifier = Enums.Modifiers.ADD_LETTER
+		Enums.Modifiers.FREEZE: new_modifier = Enums.Modifiers.FREEZE
+		Enums.Modifiers.LOCK: new_modifier = Enums.Modifiers.LOCK
+		Enums.Modifiers.WILD_CARD: new_modifier = Enums.Modifiers.WILD_CARD
+	player.current_modifier = new_modifier
+	modifier_change.emit(new_modifier)
 
 func _on_timer_timeout() -> void:
 	clear_modifier()
