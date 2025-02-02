@@ -134,7 +134,7 @@ func handle_input(event: InputEventKey) -> void:
 			if current_modifier > -1:
 				use_modifier.emit(self, current_modifier)
 				current_modifier = -1
-				modifier_change.emit(current_modifier)
+				modifier_manager.modifier_change.emit(current_modifier)
 			else:
 				print("no modifier held!")
 		KEY_2: 
