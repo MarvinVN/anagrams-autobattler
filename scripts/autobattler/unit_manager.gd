@@ -6,6 +6,7 @@ extends Node2D
 
 const PAWN = preload("res://scenes/pawn.tscn")
 const WARRIOR = preload("res://scenes/warrior.tscn")
+const ARCHER = preload("res://scenes/archer.tscn")
 var unit_list: Array = []
   
 func spawn_unit(word_length: int, team: int) -> Unit:
@@ -13,7 +14,7 @@ func spawn_unit(word_length: int, team: int) -> Unit:
 	match word_length:
 		3: new_unit = PAWN.instantiate()
 		4: new_unit = WARRIOR.instantiate()
-		5: new_unit = WARRIOR.instantiate()
+		5: new_unit = ARCHER.instantiate()
 		6: new_unit = WARRIOR.instantiate()
 	add_child(new_unit)
 	new_unit.team_component.team = team
