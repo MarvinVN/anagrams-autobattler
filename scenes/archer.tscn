@@ -1,22 +1,22 @@
-[gd_scene load_steps=34 format=3 uid="uid://dm8hymubbxrlt"]
+[gd_scene format=3 uid="uid://dm8hymubbxrlt"]
 
-[ext_resource type="Script" path="res://scripts/autobattler/unit.gd" id="1_q7fa0"]
+[ext_resource type="Script" uid="uid://bnryo5lewpxqy" path="res://scripts/archer.gd" id="1_qow5k"]
 [ext_resource type="Texture2D" uid="uid://ritwd81prctb" path="res://assets/Tiny Swords/Factions/Knights/Troops/Archer/Archer + Bow/Archer_Blue_(NoArms).png" id="2_fbxu1"]
 [ext_resource type="Texture2D" uid="uid://dbedt4w1jswux" path="res://assets/Tiny Swords/Factions/Knights/Troops/Archer/Archer + Bow/Archer_Bow_Blue.png" id="3_gypag"]
-[ext_resource type="Script" path="res://scripts/autobattler/health_bar.gd" id="3_l5lqg"]
-[ext_resource type="Script" path="res://scripts/components/health_component.gd" id="4_n24nr"]
+[ext_resource type="Script" uid="uid://fvlj3x4q56ly" path="res://scripts/autobattler/health_bar.gd" id="3_l5lqg"]
+[ext_resource type="Script" uid="uid://bji22ksijfdbv" path="res://scripts/components/health_component.gd" id="4_n24nr"]
 [ext_resource type="PackedScene" uid="uid://cqq4rinvc18ec" path="res://scenes/attack_component.tscn" id="5_iumak"]
-[ext_resource type="Script" path="res://scripts/components/hitbox_component.gd" id="6_j2bld"]
-[ext_resource type="Script" path="res://scripts/components/pathfind_component.gd" id="7_pcs2c"]
-[ext_resource type="Script" path="res://scripts/components/team_component.gd" id="8_kpavc"]
-[ext_resource type="Script" path="res://scripts/components/velocity_component.gd" id="9_a3c4h"]
+[ext_resource type="Script" uid="uid://bhncuw02nwce3" path="res://scripts/components/hitbox_component.gd" id="6_j2bld"]
+[ext_resource type="Script" uid="uid://cvdrhgms7q1q8" path="res://scripts/components/pathfind_component.gd" id="7_pcs2c"]
+[ext_resource type="Script" uid="uid://6ipor8x132km" path="res://scripts/components/team_component.gd" id="8_kpavc"]
+[ext_resource type="Script" uid="uid://ns24gniyltb0" path="res://scripts/components/velocity_component.gd" id="9_a3c4h"]
 [ext_resource type="PackedScene" uid="uid://bp2u1u6n4td2u" path="res://scenes/vision_component.tscn" id="10_g6yop"]
-[ext_resource type="Script" path="res://scripts/states/state_machine.gd" id="11_q7m1a"]
-[ext_resource type="Script" path="res://scripts/states/unit_attack_state.gd" id="12_l3rjb"]
-[ext_resource type="Script" path="res://scripts/states/unit_death_state.gd" id="13_354sl"]
-[ext_resource type="Script" path="res://scripts/states/unit_idle_state.gd" id="14_rk2nm"]
-[ext_resource type="Script" path="res://scripts/states/unit_march_state.gd" id="15_d112w"]
-[ext_resource type="Script" path="res://scripts/states/unit_pursuit_state.gd" id="16_ixwu4"]
+[ext_resource type="Script" uid="uid://sqx54uapchls" path="res://scripts/states/state_machine.gd" id="11_q7m1a"]
+[ext_resource type="Script" uid="uid://bppusvk24tju5" path="res://scripts/states/unit_death_state.gd" id="13_354sl"]
+[ext_resource type="Script" uid="uid://cp6u5lwkm2tsi" path="res://scripts/states/unit_attack_state.gd" id="13_bhukf"]
+[ext_resource type="Script" uid="uid://bq027re7ptkoo" path="res://scripts/states/unit_idle_state.gd" id="14_rk2nm"]
+[ext_resource type="Script" uid="uid://b16agd65ve6v2" path="res://scripts/states/unit_march_state.gd" id="15_d112w"]
+[ext_resource type="Script" uid="uid://b6gtwqewhb8gq" path="res://scripts/states/unit_pursuit_state.gd" id="16_ixwu4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4le5"]
 
@@ -62,6 +62,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0), Vector2i(5, 0)]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../AttackComponent")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"attack"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_iehyh"]
 resource_name = "attack2"
@@ -77,6 +91,20 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0), Vector2i(5, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../AttackComponent")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"attack"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_xhjgp"]
@@ -147,13 +175,13 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dk8it"]
 _data = {
-"RESET": SubResource("Animation_u2pj5"),
-"attack1": SubResource("Animation_dr8jx"),
-"attack2": SubResource("Animation_iehyh"),
-"death": SubResource("Animation_xhjgp"),
-"free": SubResource("Animation_obr80"),
-"idle": SubResource("Animation_p7p3b"),
-"walk": SubResource("Animation_j6qg6")
+&"RESET": SubResource("Animation_u2pj5"),
+&"attack1": SubResource("Animation_dr8jx"),
+&"attack2": SubResource("Animation_iehyh"),
+&"death": SubResource("Animation_xhjgp"),
+&"free": SubResource("Animation_obr80"),
+&"idle": SubResource("Animation_p7p3b"),
+&"walk": SubResource("Animation_j6qg6")
 }
 
 [sub_resource type="Animation" id="Animation_kugai"]
@@ -202,11 +230,15 @@ tracks/0/keys = {
 "values": [Vector2i(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_bdcwl"]
+resource_name = "walk"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_863jv"]
 _data = {
-"RESET": SubResource("Animation_kugai"),
-"attack": SubResource("Animation_gmehs"),
-"idle": SubResource("Animation_osuc3")
+&"RESET": SubResource("Animation_kugai"),
+&"attack": SubResource("Animation_gmehs"),
+&"idle": SubResource("Animation_osuc3"),
+&"walk": SubResource("Animation_bdcwl")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b1j2c"]
@@ -232,41 +264,37 @@ corner_radius_bottom_left = 1
 radius = 17.0
 height = 52.0
 
-[node name="Archer" type="CharacterBody2D"]
-script = ExtResource("1_q7fa0")
+[node name="Archer" type="CharacterBody2D" unique_id=458623197]
+script = ExtResource("1_qow5k")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1636716696]
 texture_filter = 1
 texture = ExtResource("2_fbxu1")
 offset = Vector2(0, -30)
 hframes = 6
 vframes = 2
 
-[node name="BowSprite" type="Sprite2D" parent="."]
+[node name="BowSprite" type="Sprite2D" parent="." unique_id=1347855520]
 texture = ExtResource("3_gypag")
 offset = Vector2(0, -30)
 hframes = 8
 vframes = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1195983152]
 visible = false
 shape = SubResource("CircleShape2D_g4le5")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1941993067]
 root_node = NodePath("../Sprite2D")
-libraries = {
-"": SubResource("AnimationLibrary_dk8it")
-}
+libraries/ = SubResource("AnimationLibrary_dk8it")
 
-[node name="BowAnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="BowAnimationPlayer" type="AnimationPlayer" parent="." unique_id=554494712]
 root_node = NodePath("../BowSprite")
-libraries = {
-"": SubResource("AnimationLibrary_863jv")
-}
+libraries/ = SubResource("AnimationLibrary_863jv")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=1050244357]
 
-[node name="HealthBar" type="ProgressBar" parent="." node_paths=PackedStringArray("health_component")]
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=1756120389 node_paths=PackedStringArray("health_component")]
 z_index = 1
 y_sort_enabled = true
 offset_left = -30.0
@@ -281,65 +309,68 @@ script = ExtResource("3_l5lqg")
 health_component = NodePath("../HealthComponent")
 metadata/_edit_use_anchors_ = true
 
-[node name="HealthComponent" type="Node" parent="."]
+[node name="HealthComponent" type="Node" parent="." unique_id=1475968814]
 script = ExtResource("4_n24nr")
-max_health = 50.0
+max_health = 30.0
 
-[node name="AttackComponent" parent="." instance=ExtResource("5_iumak")]
-visible = false
+[node name="AttackComponent" parent="." unique_id=1546201725 instance=ExtResource("5_iumak")]
 position = Vector2(0, -30)
-damage = 20.0
+scale = Vector2(5, 5)
+damage = 15.0
 
-[node name="AttackArea" parent="AttackComponent" index="0"]
-position = Vector2(23, 0)
-
-[node name="HitboxComponent" type="Area2D" parent="."]
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=234740125]
 visible = false
 position = Vector2(0, -30)
 script = ExtResource("6_j2bld")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1615830903]
 shape = SubResource("CapsuleShape2D_hpna6")
 
-[node name="PathfindComponent" type="Node2D" parent="." node_paths=PackedStringArray("velocity_component")]
+[node name="PathfindComponent" type="Node2D" parent="." unique_id=1864118128 node_paths=PackedStringArray("velocity_component")]
 script = ExtResource("7_pcs2c")
 velocity_component = NodePath("../VelocityComponent")
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="PathfindComponent"]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="PathfindComponent" unique_id=746319321]
 
-[node name="TeamComponent" type="Node" parent="."]
+[node name="TeamComponent" type="Node" parent="." unique_id=990061398]
 script = ExtResource("8_kpavc")
 
-[node name="VelocityComponent" type="Node" parent="."]
+[node name="VelocityComponent" type="Node" parent="." unique_id=660057010]
 script = ExtResource("9_a3c4h")
 speed = 1500.0
 
-[node name="VisionComponent" parent="." instance=ExtResource("10_g6yop")]
+[node name="VisionComponent" parent="." unique_id=1036534450 instance=ExtResource("10_g6yop")]
 position = Vector2(0, -30)
+scale = Vector2(1.75, 1.75)
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" type="Node" parent="." unique_id=1662280766 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("11_q7m1a")
 initial_state = NodePath("Idle")
 
-[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
-script = ExtResource("12_l3rjb")
+[node name="Attack" type="Node" parent="StateMachine" unique_id=219498175 node_paths=PackedStringArray("unit")]
+script = ExtResource("13_bhukf")
 unit = NodePath("../..")
 
-[node name="Death" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
+[node name="Death" type="Node" parent="StateMachine" unique_id=966493240 node_paths=PackedStringArray("unit")]
 script = ExtResource("13_354sl")
 unit = NodePath("../..")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1052364595 node_paths=PackedStringArray("unit")]
 script = ExtResource("14_rk2nm")
 unit = NodePath("../..")
 
-[node name="March" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
+[node name="March" type="Node" parent="StateMachine" unique_id=1237319003 node_paths=PackedStringArray("unit")]
 script = ExtResource("15_d112w")
 unit = NodePath("../..")
 
-[node name="Pursuit" type="Node" parent="StateMachine" node_paths=PackedStringArray("unit")]
+[node name="Pursuit" type="Node" parent="StateMachine" unique_id=2078627943 node_paths=PackedStringArray("unit")]
 script = ExtResource("16_ixwu4")
 unit = NodePath("../..")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack" method="_on_animation_player_animation_finished"]
+[connection signal="health_below_zero" from="HealthComponent" to="." method="_on_health_below_zero"]
+[connection signal="health_below_zero" from="HealthComponent" to="HealthBar" method="_on_health_below_zero"]
+[connection signal="health_change" from="HealthComponent" to="HealthBar" method="_on_health_change"]
 
 [editable path="AttackComponent"]
 [editable path="VisionComponent"]

@@ -39,7 +39,7 @@ func switch_sprite() -> void:
 	sprite.hframes = 7
 	sprite.vframes = 2
 
-func _on_timer_timeout():
+func _on_timer_timeout() -> void:
 	find_target()
 
 func _on_health_below_zero() -> void:
