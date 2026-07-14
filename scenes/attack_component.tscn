@@ -9,6 +9,7 @@ radius = 36.0
 script = ExtResource("1_qbahr")
 
 [node name="AttackArea" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_gsk8x")
 debug_color = Color(0.897236, 0.110067, 0.275125, 0.419608)
 

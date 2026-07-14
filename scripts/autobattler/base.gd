@@ -2,6 +2,7 @@ class_name Base
 extends Area2D
 
 signal give_modifier(team: int)
+signal base_destroyed(team: int)
 
 @export var unit_spawn_area: CollisionShape2D
 
@@ -10,6 +11,7 @@ signal give_modifier(team: int)
 @onready var team_component := $TeamComponent
 
 var health_below_half := false
+var is_destroyed := false
 
 func _ready() -> void:
 	if team_component.team == 2:
@@ -28,3 +30,9 @@ func _on_health_change() -> void:
 	if health_component.current_health <= health_component.max_health/2 and not health_below_half:
 		give_modifier.emit(team_component.team)
 		health_below_half = true
+
+func _on_health_below_zero() -> void:
+	if is_destroyed:
+		return
+	is_destroyed = true
+	base_destroyed.emit(team_component.team)

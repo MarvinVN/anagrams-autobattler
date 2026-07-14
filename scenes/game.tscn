@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dyfygnf6dxqow"]
+[gd_scene load_steps=5 format=3 uid="uid://dyfygnf6dxqow"]
 
 [ext_resource type="PackedScene" uid="uid://buqlkb5fix0v7" path="res://scenes/anagrams.tscn" id="1_66c0x"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_whjmp"]
 [ext_resource type="PackedScene" uid="uid://da4k7ar2nurxr" path="res://scenes/autobattler.tscn" id="2_1jfny"]
+[ext_resource type="PackedScene" path="res://scenes/game_over.tscn" id="3_gover"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_whjmp")
@@ -11,8 +12,11 @@ script = ExtResource("1_whjmp")
 
 [node name="AutobattlerRoot" parent="." instance=ExtResource("2_1jfny")]
 
+[node name="GameOver" parent="." instance=ExtResource("3_gover")]
+
 [connection signal="valid_word_submission" from="AnagramsRoot" to="." method="_on_valid_word_submission"]
 [connection signal="give_modifier" from="AutobattlerRoot" to="." method="_on_give_modifier"]
+[connection signal="match_over" from="AutobattlerRoot" to="." method="_on_match_over"]
 
 [editable path="AnagramsRoot"]
 [editable path="AutobattlerRoot"]

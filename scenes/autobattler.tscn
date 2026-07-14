@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/autobattler/unit_manager.gd" id="3_nc8on"]
 [ext_resource type="PackedScene" uid="uid://dnxukncfg2tne" path="res://scenes/base.tscn" id="4_yrwcp"]
 [ext_resource type="Script" path="res://scripts/unit_spawn_menu.gd" id="6_camvw"]
+[ext_resource type="Script" path="res://scripts/autobattler/enemy_ai.gd" id="7_enmai"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_tcu65"]
 vertices = PackedVector2Array(1542, 576.039, -407.742, 584.953, -402.242, 361.992, 1542, 361)
@@ -115,6 +116,12 @@ script = ExtResource("3_nc8on")
 baseA = NodePath("../BaseA")
 baseB = NodePath("../BaseB")
 
+[node name="EnemyAI" type="Node" parent="." node_paths=PackedStringArray("unit_manager")]
+script = ExtResource("7_enmai")
+unit_manager = NodePath("../UnitManager")
+
+[node name="Timer" type="Timer" parent="EnemyAI"]
+
 [node name="BaseA" parent="." node_paths=PackedStringArray("unit_spawn_area") instance=ExtResource("4_yrwcp")]
 position = Vector2(-25, 414)
 unit_spawn_area = NodePath("UnitSpawnArea/CollisionShape2D")
@@ -195,7 +202,9 @@ layout_mode = 2
 focus_mode = 0
 text = "unitB6"
 
+[connection signal="base_destroyed" from="BaseA" to="." method="_on_base_destroyed"]
 [connection signal="give_modifier" from="BaseA" to="." method="_on_give_modifier"]
+[connection signal="base_destroyed" from="BaseB" to="." method="_on_base_destroyed"]
 [connection signal="give_modifier" from="BaseB" to="." method="_on_give_modifier"]
 [connection signal="pressed" from="UnitSpawnMenu/TeamA/A3" to="UnitSpawnMenu" method="_on_a_3_pressed"]
 [connection signal="pressed" from="UnitSpawnMenu/TeamA/A4" to="UnitSpawnMenu" method="_on_a_4_pressed"]
